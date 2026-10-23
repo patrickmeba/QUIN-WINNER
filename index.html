@@ -245,26 +245,49 @@ document.getElementById('saleDate').value=today();document.getElementById('moveD
 renderAll();changeRole();
 </script>
 </body>
-<!-- Connexion Firebase Realtime Database -->
+<!-- Connexion Realtime Database Firebase + Synchronisation QUIN WINNER -->
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { initializeApp } from "https://gstatic.com";
+  import { getDatabase, ref, set, onValue } from "https://gstatic.com";
 
-  // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyAzFf_uiyr-ZpYfVxnj_7tSkhspAyhX2GI",
+    apiKey: "AIzaSyAzFf_uiyr-ZpYfVnxj_7tSkhspAyhX2GI",
     authDomain: "quin-winner-ee316.firebaseapp.com",
     databaseURL: "https://quin-winner-ee316-default-rtdb.firebaseio.com",
     projectId: "quin-winner-ee316",
     storageBucket: "quin-winner-ee316.firebasestorage.app",
     messagingSenderId: "841086903763",
-    appId: "1:841086903763:web:93f3e92504cf3e5baa7b26"
+    appId: "1:841086903763:web:93f3e2504cf3e5baa7b26"
   };
 
-  // Initialize Firebase
+  // Initialisation de Firebase
   const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+  const dbRef = ref(database, 'stockData');
+
+  // 1. ÉCOUTE EN TEMPS RÉEL : Dès que la base de données change, on met à jour l'application
+  onValue(dbRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      window.db = data; // Remplace les données locales par celles de Firebase
+      if (typeof renderAll === "function") {
+        renderAll(); // Re-dessine l'interface automatiquement avec les nouveaux stocks
+      }
+    }
+  });
+
+  // 2. REMPLACEMENT DE LA FONCTION SAVE POUR ENVOYER À FIREBASE
+  window.save = function(KEY, array) {
+    // On met d'abord à jour notre copie locale de l'application
+    if (!window.db) window.db = {};
+    window.db[KEY] = array;
+    
+    // On envoie le tout instantanément sur Firebase en temps réel
+    set(dbRef, window.db)
+      .then(() => console.log("Données synchronisées sur Firebase !"))
+      .catch((error) => console.error("Erreur de synchro :", error));
+  };
 </script>
 
 </html>
+
