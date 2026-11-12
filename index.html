@@ -336,3 +336,6 @@ $("hl-i").onclick=()=>$("hl-f").click();
 $("hl-f").onchange=async e=>{const f=e.target.files.at(0);e.target.value="";if(!f)return;
   let j;try{j=JSON.parse(await f.text());if(!j||!Array.isArray(j.ops))throw 0}catch(x){return toast("Fichier d’opérations invalide")}
   const dt=/^\d{4}-\d{2}-\d{2}$/;
+</script>
+</body>
+</html>
