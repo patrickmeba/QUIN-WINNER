@@ -3,138 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>QUIN WINNER – Hors ligne</title>
+<title>QUIN WINNER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#EDF2F0;--card:#fff;--tx:#14231F;--mut:#5F7470;--pri:#0E5A4F;--pri2:#0A3F38;--acc:#F4B43A;--bad:#D8452B;--ok:#14804A;--bd:#DCE6E3;--inp:#F3F7F6;--f:"Segoe UI",Roboto,Arial,sans-serif}
-@media(prefers-color-scheme:dark){:root{--bg:#0B1513;--card:#13211E;--tx:#E6F0ED;--mut:#8FA8A3;--pri:#2FA38F;--pri2:#0F3A33;--bad:#FF8A70;--ok:#5FD497;--bd:#22342F;--inp:#0F1B19;color-scheme:dark}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 var(--f);padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
-.hero{background:linear-gradient(160deg,var(--pri2),var(--pri));color:#fff;padding:calc(16px + env(safe-area-inset-top,0px)) 18px 46px;border-radius:0 0 30px 30px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.mq{overflow:hidden;width:150px;font:800 18px var(--f);letter-spacing:2px}.mqi{display:inline-flex;white-space:nowrap;animation:mq 8s linear infinite}.mqi span{padding-right:34px}
-@keyframes mq{to{transform:translateX(-50%)}}
-.pill{font-size:12px;font-weight:700;background:rgba(255,255,255,.18);padding:5px 11px;border-radius:20px}
-.pill.w{background:var(--acc);color:#14231F}
-.lab{margin-top:16px;font-size:13px;opacity:.85}.big{font:800 36px/1.1 var(--f)}
-main{padding:0 14px;max-width:640px;margin:-26px auto 0}
+:root{--bg:#EDF2F0;--card:#fff;--tx:#14231F;--mut:#5F7470;--pri:#0E5A4F;--pri2:#0A3F38;--acc:#F4B43A;--bad:#D8452B;--ok:#14804A;--bd:#DCE6E3;--inp:#F3F7F6;--tint:#FCE9E4;
+--fh:"Bricolage Grotesque","Trebuchet MS",Arial,sans-serif;--fb:"Figtree","Segoe UI",Arial,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1513;--card:#13211E;--tx:#E6F0ED;--mut:#8FA8A3;--pri:#2FA38F;--pri2:#0F3A33;--bad:#FF8A70;--ok:#5FD497;--bd:#22342F;--inp:#0F1B19;--tint:#3A1F1A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0B1513;--card:#13211E;--tx:#E6F0ED;--mut:#8FA8A3;--pri:#2FA38F;--pri2:#0F3A33;--bad:#FF8A70;--ok:#5FD497;--bd:#22342F;--inp:#0F1B19;--tint:#3A1F1A;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 var(--fb)}
+.hero{background:linear-gradient(160deg,var(--pri2),var(--pri));color:#fff;padding:18px 18px 54px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-50px;top:-50px;width:170px;height:170px;border-radius:50%;border:26px solid var(--acc);opacity:.22}
+.top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.brand{font:700 17px var(--fh);letter-spacing:.2px;display:flex;align-items:center;gap:8px}
+.logo{width:28px;height:28px;border-radius:9px;background:var(--acc);display:grid;place-items:center}
+.logo svg{width:16px;height:16px;stroke:#14231F}
+.role{font-size:12px;font-weight:600;background:rgba(255,255,255,.16);padding:5px 11px;border-radius:20px}
+.lab{margin-top:20px;font-size:13px;opacity:.85;position:relative;z-index:1}
+.big{font:800 42px/1.1 var(--fh);margin-top:2px;position:relative;z-index:1}
+.sub{font-size:13px;opacity:.85;margin-top:4px;position:relative;z-index:1;text-transform:capitalize}
+main{padding:0 14px 110px;max-width:640px;margin:-30px auto 0;position:relative}
 .card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 6px 18px rgba(14,60,52,.08)}
+.card>b{font:700 16px var(--fh)}
 label{display:block;font-size:13px;font-weight:600;color:var(--mut);margin:12px 0 5px}
-input,select{width:100%;padding:12px;font:500 16px var(--f);border:1.5px solid var(--bd);border-radius:12px;background:var(--inp);color:var(--tx)}
-input:focus,select:focus,button:focus-visible{outline:3px solid var(--acc);outline-offset:1px}
+input,select{width:100%;box-sizing:border-box;padding:12px;font:500 16px var(--fb);border:1.5px solid var(--bd);border-radius:12px;background:var(--inp);color:var(--tx)}
+input:focus,select:focus,button:focus-visible{outline:3px solid var(--acc);outline-offset:1px;border-color:transparent}
 .row{display:flex;gap:10px}.row>*{flex:1;min-width:0}
-.btn{width:100%;margin-top:14px;padding:14px;border:0;border-radius:14px;background:var(--acc);color:#14231F;font:700 16px var(--f)}
-.btn.alt{background:transparent;color:var(--tx);border:1.5px solid var(--bd)}
-.it{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--bd)}.it:last-child{border:0}
-.mut{color:var(--mut);font-size:12.5px}.bad{color:var(--bad);font-weight:700}.ok{color:var(--ok);font-weight:600}
+.btn{width:100%;margin-top:16px;padding:14px;border:0;border-radius:14px;background:var(--pri);color:#fff;font:700 16px var(--fb);transition:transform .12s}
+.btn:active{transform:scale(.98)}
+#sv-b,#dp-b,#ar-b,#en-b{background:var(--acc);color:#14231F}
+.btn.alt{background:transparent;color:var(--mut);border:1.5px solid var(--bd)}
+.it{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--bd)}.it:last-child{border:0}
+.it>span:last-child{font:700 15px var(--fh);white-space:nowrap}
+.mut{color:var(--mut);font-size:12.5px;font-weight:400}
+.bad{color:var(--bad)}.ok{color:var(--ok);font-weight:600}
+#mq-l .bad{background:var(--tint);padding:4px 10px;border-radius:20px;font-size:13px}
 .x{border:0;background:none;color:var(--mut);font-size:16px;padding:4px 6px}
-#nav{position:fixed;left:0;right:0;bottom:0;display:flex;gap:4px;background:var(--card);border-top:1px solid var(--bd);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
-#nav button{flex:1;border:0;background:none;color:var(--mut);padding:11px 2px;border-radius:14px;font:700 13px var(--f)}
-#nav button.on{background:var(--inp);color:var(--pri)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.kpi div{background:var(--inp);border-radius:14px;padding:11px;font-size:13px;color:var(--mut)}
+.kpi b{display:block;font:800 20px var(--fh);color:var(--tx);margin-top:2px}
+.kpi div:last-child:nth-child(odd){grid-column:1/-1;background:var(--pri);color:#fff}.kpi div:last-child:nth-child(odd) b{color:var(--acc)}
+#sv-t{margin-top:10px;padding:10px 12px;background:var(--inp);border-radius:12px;color:var(--mut);font-size:13.5px}
+#nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;gap:2px;background:var(--card);border-top:1px solid var(--bd);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 18px rgba(14,60,52,.08)}
+#nav button{flex:1;max-width:96px;min-width:0;border:0;background:none;color:var(--mut);padding:6px 2px;border-radius:14px;font:600 10.5px var(--fb);display:flex;flex-direction:column;align-items:center;gap:3px}
+#nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#nav button.on{color:var(--pri);background:var(--inp)}
+:root[data-theme="dark"] #nav button.on,.dk #nav button.on{color:var(--acc)}
+#toast{position:fixed;left:14px;right:14px;bottom:calc(86px + env(safe-area-inset-bottom,0px));background:var(--tx);color:var(--bg);padding:12px;border-radius:14px;display:none;text-align:center;z-index:40;font-weight:600}
 .tab{display:none}.tab.on{display:block}
-#toast{position:fixed;left:14px;right:14px;bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--tx);color:var(--bg);padding:12px;border-radius:14px;display:none;text-align:center;z-index:40;font-weight:600}
-.ov{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;padding:20px;overflow:auto;background:linear-gradient(160deg,var(--pri2),var(--pri))}
-.ov .card{width:100%;max-width:380px;margin:0}
-h2{margin:0 0 6px;font:800 22px var(--f)}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+.brand{font:800 18px var(--fh);letter-spacing:2px;min-width:0}
+.mq{overflow:hidden;width:150px}.mqi{display:inline-flex;white-space:nowrap;animation:mq 8s linear infinite}.mqi span{padding-right:34px}
+@keyframes mq{to{transform:translateX(-50%)}}
+button.role{border:0;color:#fff;font-family:var(--fb);cursor:pointer}
+#login{position:fixed;inset:0;z-index:20;display:none;flex-direction:column;justify-content:center;padding:calc(24px + env(safe-area-inset-top,0px)) 20px calc(24px + env(safe-area-inset-bottom,0px));background:linear-gradient(160deg,var(--pri2),var(--pri));overflow:auto}
+#login h2{font:800 34px var(--fh);letter-spacing:2px;color:#fff;text-align:center;margin:0 0 4px}
+#login p.s{color:#fff;opacity:.85;text-align:center;margin:0 0 20px}
+.lgc{background:var(--card);color:var(--tx);border-radius:24px;padding:20px;max-width:380px;width:100%;box-sizing:border-box;margin:0 auto}
+.picks{display:flex;gap:10px}.picks button{flex:1;padding:16px 8px;border-radius:14px;border:2px solid var(--bd);background:var(--inp);color:var(--tx);font:800 18px var(--fh)}
+.picks button.on{background:var(--acc);border-color:var(--acc);color:#14231F}
+#lg-err{color:var(--bad);font-weight:600;min-height:20px;margin-top:8px;font-size:14px}
 @media(prefers-reduced-motion:reduce){.mqi{animation:none}}
-@media print{body>*:not(#rc){display:none!important}#rc{position:static!important;background:#fff!important;display:block!important}#rc button{display:none}}
+#cf{position:fixed;inset:0;z-index:35;background:rgba(10,30,26,.7);align-items:center;justify-content:center;padding:20px}
+#rc{position:fixed;inset:0;z-index:30;background:rgba(10,30,26,.7);align-items:center;justify-content:center;padding:20px;overflow:auto}
+@media print{body>*:not(#rc){display:none!important}#rc{position:static!important;background:#fff!important;display:block!important}#rc .lgc{box-shadow:none}#rc button{display:none}}
 </style>
 </head>
 <body>
-<div class="ov" id="lg"><div class="card">
-<h2>QUIN WINNER</h2><div class="mut">Caisse hors ligne</div>
-<div id="lg-a"><p>Importez d’abord le <b>catalogue</b> (fichier <i>catalogue_QUIN_WINNER.json</i>), téléchargé depuis l’application en ligne.</p>
-<button class="btn" id="lg-i">Importer le catalogue</button></div>
-<div id="lg-b" style="display:none"><label>Votre nom</label><input id="lg-n" autocomplete="name"><label>Mot de passe AGENT</label><input id="lg-p" type="password">
-<div id="lg-e" class="bad" style="margin-top:8px;min-height:20px"></div><button class="btn" id="lg-go">Entrer</button>
-<button class="btn alt" id="lg-i2">Remplacer le catalogue</button></div>
-<input type="file" id="f-cat" accept=".json,application/json" hidden></div></div>
-
-<div class="ov" id="rc" style="background:rgba(10,30,26,.7)"><div class="card"><h2>Reçu</h2><pre id="rc-t" style="white-space:pre-wrap;font:500 15px/1.5 var(--f)"></pre>
-<div class="row"><button class="btn alt" id="rc-c">Copier</button><button class="btn alt" id="rc-p">Imprimer</button></div><button class="btn" id="rc-x">Fermer</button></div></div>
-
-<div class="ov" id="cf" style="background:rgba(10,30,26,.7);z-index:35"><div class="card"><p id="cf-m" style="font-weight:600;margin:0 0 6px"></p><div class="row"><button class="btn alt" id="cf-n">Annuler</button><button class="btn" id="cf-y" style="background:var(--bad);color:#fff">Confirmer</button></div></div></div>
-<div class="hero"><div class="top"><div class="mq"><div class="mqi"><span>QUIN WINNER</span><span>QUIN WINNER</span><span>QUIN WINNER</span><span>QUIN WINNER</span></div></div><span class="pill" id="st"></span></div>
-<div class="lab">Ventes enregistrées ici aujourd’hui</div><div class="big" id="tot">0</div></div>
+<div id="rc" style="display:none"><div class="lgc"><b style="font:800 20px var(--fh)">Reçu</b><pre id="rc-t" style="white-space:pre-wrap;font:500 15px/1.5 var(--fb);margin:10px 0"></pre><div class="row"><button class="btn alt" id="rc-c">Copier</button><button class="btn alt" id="rc-p">Imprimer</button></div><button class="btn" id="rc-x">Fermer</button></div></div>
+<div id="cf" style="display:none"><div class="lgc"><p id="cf-m" style="font-weight:600;margin:0 0 6px"></p><div class="row"><button class="btn alt" id="cf-n">Annuler</button><button class="btn" id="cf-y" style="background:var(--bad);color:#fff">Supprimer</button></div></div></div>
+<div id="login"><h2>QUIN WINNER</h2><p class="s">Choisissez votre accès</p><div class="lgc">
+<div class="picks"><button id="lg-dg">DG</button><button id="lg-ag">AGENT</button></div>
+<div id="lg-nmw"><label>Votre nom (pour signer vos ventes)</label><input id="lg-nm" autocomplete="name"></div>
+<label>Mot de passe</label><input id="lg-pw" type="password" autocomplete="current-password">
+<div id="lg-err"></div><button class="btn" id="lg-go" style="margin-top:8px">Entrer</button></div></div>
+<div class="hero"><div class="top"><div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8"/></svg></span><div class="mq"><div class="mqi"><span>QUIN WINNER</span><span>QUIN WINNER</span><span>QUIN WINNER</span><span>QUIN WINNER</span></div></div></div><button class="role" id="role">Connexion…</button></div>
+<div class="lab">Ventes du jour</div><div class="big" id="h-tot">0</div><div class="sub" id="h-sub"></div></div>
 <main>
-<section class="tab on" id="t-sv"><div class="card">
+<section class="tab" id="t-sv"><div class="card">
 <label>Rechercher un article</label><input id="sv-s" type="search" placeholder="Tapez le nom…" autocomplete="off">
 <label>Article</label><select id="sv-a"></select>
-<div class="row"><div><label>Quantité</label><input id="sv-q" type="number" min="1" value="1" inputmode="numeric"></div><div><label>Prix unitaire</label><input id="sv-p" readonly></div></div>
-<div id="sv-i" class="mut" style="margin-top:8px"></div>
+<div class="row"><div><label>Quantité</label><input id="sv-q" type="number" min="1" value="1" inputmode="numeric"></div><div><label>Prix unitaire</label><input id="sv-p" type="number" readonly></div></div>
+<div id="sv-t" class="mut" style="margin-top:8px"></div>
 <button class="btn" id="sv-add">Ajouter au panier</button></div>
-<div class="card" id="cart" style="display:none"><b>Panier</b><div id="cart-l"></div><div id="cart-t" style="font:800 20px var(--f);margin-top:8px"></div>
+<div class="card" id="cart" style="display:none"><b>Panier</b><div id="cart-l"></div><div id="cart-t" style="font:800 20px var(--fh);margin-top:8px"></div>
 <label>Paiement</label><select id="sv-pay"><option value="c">Comptant</option><option value="k">À crédit</option></select>
-<div id="sv-clw" style="display:none"><label>Nom du client</label><input id="sv-cl" autocomplete="off"></div>
-<button class="btn" id="sv-b">Valider la vente</button></div></section>
+<div id="sv-clw" style="display:none"><label>Nom du client</label><input id="sv-cl" list="cl-list" autocomplete="off"><datalist id="cl-list"></datalist></div>
+<button class="btn" id="sv-b">Valider la vente</button></div>
+<div class="card"><b>Mode hors ligne</b><div class="mut" style="margin:4px 0 8px">Téléchargez le catalogue pour la caisse hors ligne, puis importez ici les ventes faites sans connexion.</div><div class="row"><button class="btn alt" id="hl-c" style="margin-top:0">Télécharger le catalogue</button><button class="btn alt" id="hl-i" style="margin-top:0">Importer mes ventes hors ligne</button></div><input type="file" id="hl-f" accept=".json,application/json" hidden></div>
+<div class="card"><div class="row" style="align-items:center"><b>Ventes</b><input id="sv-d" type="date"></div><div id="sv-l"></div></div></section>
 
-<section class="tab" id="t-dp"><div class="card"><label>Libellé</label><input id="dp-l" placeholder="Transport, loyer…"><label>Montant</label><input id="dp-m" type="number" min="0" inputmode="numeric"><button class="btn" id="dp-b">Enregistrer la dépense</button></div></section>
+<section class="tab" id="t-cr"><div class="card"><b>Dettes des clients</b><div id="cr-l"></div></div>
+<div class="card"><b>Enregistrer un paiement</b><label>Client</label><select id="cr-c"></select><label>Montant reçu</label><input id="cr-m" type="number" min="1" inputmode="numeric"><button class="btn" id="cr-b">Enregistrer le paiement</button></div>
+<div class="card"><b>Derniers paiements</b><div id="cr-h"></div></div></section>
+<section class="tab" id="t-dp"><div class="card">
+<label>Libellé</label><input id="dp-l" placeholder="Transport, loyer…">
+<label>Montant</label><input id="dp-m" type="number" min="0" inputmode="numeric">
+<button class="btn" id="dp-b">Enregistrer la dépense</button></div>
+<div class="card"><div class="row" style="align-items:center"><b>Dépenses</b><input id="dp-d" type="date"></div><div id="dp-li"></div></div></section>
 
-<section class="tab" id="t-en"><div class="card"><b>Opérations en attente d’envoi</b><div id="op-l"></div></div>
-<div class="card"><b>Envoyer au DG</b><p class="mut">Quand vous avez internet, téléchargez ce fichier puis importez-le dans l’application en ligne (onglet Vente, « Importer mes ventes hors ligne »).</p>
-<button class="btn" id="ex-b">Télécharger le fichier à envoyer</button>
-<button class="btn alt" id="cl-b">Vider la liste (après l’import)</button></div></section>
+<section class="tab" id="t-mq"><div class="card"><b>Articles manquants</b><div id="mq-l"></div></div></section>
+
+<section class="tab" id="t-ar"><div class="card"><b id="ar-h">Nouvel article</b>
+<label>Désignation</label><input id="ar-n">
+<div class="row"><div><label>Prix d’achat</label><input id="ar-c" type="number" inputmode="numeric"></div><div><label>Prix de vente</label><input id="ar-p" type="number" inputmode="numeric"></div></div>
+<div class="row"><div><label>Seuil d’alerte</label><input id="ar-s" type="number" value="3" inputmode="numeric"></div><div><label>Stock initial</label><input id="ar-i" type="number" value="0" inputmode="numeric"></div></div>
+<button class="btn" id="ar-b">Enregistrer l’article</button><button class="btn alt" id="ar-x" style="display:none">Annuler la modification</button></div>
+<div class="card"><b>Articles</b> <span class="mut">(touchez pour modifier)</span><input id="ar-f" placeholder="Rechercher un article" style="margin-top:8px"><div id="ar-l"></div></div></section>
+
+<section class="tab" id="t-en"><div class="card">
+<label>Type d’opération</label><select id="en-t"><option value="a">Achat (entrée de stock)</option><option value="l">Perte, casse ou vol (sortie)</option><option value="i">Inventaire (indiquer le stock réel)</option></select>
+<label>Rechercher un article</label><input id="en-s" type="search" placeholder="Tapez le nom…" autocomplete="off">
+<label>Article</label><select id="en-a"></select>
+<div class="row"><div><label>Quantité</label><input id="en-q" type="number" min="1" inputmode="numeric"></div><div><label>Prix d’achat unitaire</label><input id="en-c" type="number" inputmode="numeric"></div></div>
+<button class="btn" id="en-b">Enregistrer</button></div>
+<div class="card"><b>Entrées et ajustements récents</b><div id="en-l"></div></div></section>
+
+<section class="tab" id="t-td"><div class="card"><label>Jour affiché</label><input id="td-d" type="date"></div>
+<div class="card"><b>Jour</b><div class="kpi" id="k-j"></div></div>
+<div class="card"><b>Mois</b><div class="kpi" id="k-m"></div></div>
+<div class="card"><b>Stock</b><div class="kpi" id="k-s"></div></div><div class="card"><b>Sauvegarde</b><div class="mut" style="margin-top:4px">Exporte les ventes, dépenses, entrées et articles dans un fichier Excel.</div><button class="btn" id="ex-b">Exporter vers Excel</button></div><div class="card"><b>Mots de passe</b><label>Nouveau mot de passe DG</label><input id="pw-dg" type="password"><label>Nouveau mot de passe AGENT</label><input id="pw-ag" type="password"><button class="btn" id="pw-b">Changer les mots de passe</button></div></section>
 </main>
-<nav id="nav"><button data-t="sv" class="on">Vente</button><button data-t="dp">Dépenses</button><button data-t="en">Envoi</button></nav>
+<nav id="nav"></nav>
 <div id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const pad=n=>String(n).padStart(2,"0");
 const today=()=>{const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())};
 const money=n=>Math.round(n||0).toLocaleString("fr-FR");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-function ld(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
-function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("Mémoire du téléphone pleine ou bloquée")}}
-let CAT=ld("qwo_cat",null),OPS=ld("qwo_ops",[]),who="",cart=[];
-function ask(m){return new Promise(r=>{$("cf-m").textContent=m;$("cf").style.display="flex";$("cf-y").onclick=()=>{$("cf").style.display="none";r(true)};$("cf-n").onclick=()=>{$("cf").style.display="none";r(false)}})}
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+let db=null,owner=false,editId=null,tab="sv";
+const S={payments:[],access:{},catalog:[],stockin:[],sales:[],expenses:[],costs:{},purchases:[]};
 function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",3000)}
-const art=id=>(CAT?CAT.items:[]).find(a=>a.id===id);
-const sold=id=>OPS.filter(o=>o.c==="sales"&&o.d.article===id).reduce((t,o)=>t+o.d.qty,0);
-const left=id=>(art(id)?art(id).stock:0)-sold(id);
-async function sha(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("")}
-function loginView(){$("lg").style.display="flex";$("lg-a").style.display=CAT?"none":"block";$("lg-b").style.display=CAT?"block":"none";$("lg-n").value=ld("qwo_name","");$("lg-p").value="";$("lg-e").textContent=""}
-function pickCat(){$("f-cat").click()}
-$("lg-i").onclick=$("lg-i2").onclick=pickCat;
-$("f-cat").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
-  try{const j=JSON.parse(await f.text());if(!j||!Array.isArray(j.items))throw 0;CAT={v:1,date:j.date,agent:j.agent,items:j.items.map(a=>({id:String(a.id),name:String(a.name),price:+a.price||0,stock:+a.stock||0}))};sv("qwo_cat",CAT);toast("Catalogue importé : "+CAT.items.length+" articles");loginView();draw()}
-  catch(x){toast("Fichier de catalogue invalide")}};
-$("lg-go").onclick=async()=>{const n=$("lg-n").value.trim(),p=$("lg-p").value;if(!n)return $("lg-e").textContent="Entrez votre nom";
-  if(window.crypto&&crypto.subtle&&CAT.agent){if(await sha("agent:"+p)!==CAT.agent)return $("lg-e").textContent="Mot de passe incorrect"}
-  who=n;sv("qwo_name",n);$("lg").style.display="none";draw()};
-document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+b.dataset.t));draw()});
-function fill(){const f=$("sv-s").value.trim().toLowerCase(),v=$("sv-a").value,L=(CAT?CAT.items:[]).filter(a=>!f||a.name.toLowerCase().includes(f)).sort((a,b)=>a.name.localeCompare(b.name));
-  $("sv-a").innerHTML=L.length?L.map(a=>`<option value="${esc(a.id)}">${esc(a.name)}</option>`).join(""):'<option value="" disabled selected>Aucun article trouvé</option>';if(v&&L.some(a=>a.id===v))$("sv-a").value=v;price()}
-function price(){const a=art($("sv-a").value);$("sv-p").value=a?a.price:"";$("sv-i").textContent=a?"Stock estimé : "+left(a.id)+" · total : "+money((+$("sv-q").value||0)*a.price):""}
-$("sv-s").oninput=fill;$("sv-a").onchange=price;$("sv-q").oninput=price;
+let busy=false;async function wr(fn){if(busy)return;busy=true;try{await Promise.race([fn(),new Promise((_,j)=>setTimeout(()=>j(new Error("t")),12000))])}catch(e){toast("Action refusée ou hors ligne : réessayez")}finally{busy=false}}
+const art=id=>S.catalog.find(a=>a.id===id);
+const stock=id=>S.stockin.filter(x=>x.article===id).reduce((s,x)=>s+(+x.qty||0),0)-S.sales.filter(x=>x.article===id).reduce((s,x)=>s+(+x.qty||0),0);
+const nm=id=>art(id)?art(id).name:"(supprimé)";
+
+const IC={cr:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',sv:'<path d="M6 7h12l-1 12H7L6 7z"/><path d="M9 7a3 3 0 016 0"/>',dp:'<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2M3 10h18"/>',mq:'<path d="M12 4l9 16H3L12 4z"/><path d="M12 10v4M12 17v.5"/>',ar:'<path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/>',en:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',td:'<path d="M5 20V10M12 20V4M19 20v-7"/>'};
+function buildNav(){
+  const tabs=[["sv","Vente"],["cr","Crédits"],["dp","Dépenses"],["mq","Manquants"]];
+  if(owner)tabs.push(["ar","Articles"],["en","Entrées"],["td","Bilan"]);
+  $("nav").innerHTML=tabs.map(t=>`<button data-t="${t[0]}"><svg viewBox="0 0 24 24">${IC[t[0]]}</svg>${t[1]}</button>`).join("");
+  $("nav").onclick=e=>{if(e.target.dataset.t)go(e.target.dataset.t)};
+  go(tab);
+}
+function go(t){tab=t;document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));
+  document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));render()}
+
+function fillSelect(sel,q){const v=sel.value,f=(q||"").trim().toLowerCase();
+  const L=S.catalog.filter(a=>!f||a.name.toLowerCase().includes(f)).sort((a,b)=>a.name.localeCompare(b.name));
+  sel.innerHTML=L.length?L.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join(""):'<option value="" disabled selected>Aucun article trouvé</option>';
+  if(v&&L.some(a=>a.id===v))sel.value=v}
+function render(){
+  {const tdy=today(),ds=S.sales.filter(s=>s.date===tdy);$("h-tot").textContent=money(ds.reduce((t,s)=>t+s.qty*s.price,0));$("h-sub").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})+" · "+ds.length+(ds.length>1?" ventes":" vente")}
+  fillSelect($("sv-a"),$("sv-s").value);fillSelect($("en-a"),$("en-s").value);svPrice();
+  const td=$("sv-d").value||today(),mine=S.sales.filter(s=>s.date===td).sort((a,b)=>b.ts-a.ts);
+  const G={};mine.forEach(s=>{const k=s.rid||s.id;(G[k]=G[k]||[]).push(s)});const gr=Object.entries(G).map(([k,a])=>({k,a,ts:Math.max(...a.map(x=>x.ts||0))})).sort((x,y)=>y.ts-x.ts);
+  $("sv-l").innerHTML=(mine.length?`<div class="mut" style="margin:8px 0 2px">Total : ${money(mine.reduce((t,s)=>t+s.qty*s.price,0))}</div>`:"")+gr.map(g=>{const t=g.a.reduce((c,s)=>c+s.qty*s.price,0),f=g.a[0];return `<div class="it"><span>${g.a.map(s=>esc(nm(s.article))+" × "+s.qty).join(", ")}<br><span class="mut">${esc(f.by||"")}${f.credit?" · à crédit : "+esc(f.client||""):""}</span></span><span>${money(t)} <button class="x" data-r="${g.k}">🧾</button>${(owner||f.date===today())?` <button class="x" data-g="${g.k}">✕</button>`:""}</span></div>`}).join("")||'<div class="mut">Aucune vente ce jour.</div>';
+  const td2=$("dp-d").value||today(),dj=S.expenses.filter(s=>s.date===td2).sort((a,b)=>b.ts-a.ts);
+  $("dp-li").innerHTML=dj.map(s=>`<div class="it"><span>${esc(s.label)}<br><span class="mut">${esc(s.by||"")}</span></span><span>${money(s.amount)}${(owner||s.date===today())?` <button class="x" data-d="expenses/${s.id}">✕</button>`:""}</span></div>`).join("")||'<div class="mut">Aucune dépense ce jour.</div>';
+  const low=S.catalog.filter(a=>stock(a.id)<=(+a.threshold||0));
+  $("mq-l").innerHTML=low.map(a=>`<div class="it"><span>${esc(a.name)}</span><span class="bad">reste ${stock(a.id)}</span></div>`).join("")||'<div class="ok">Aucun article manquant.</div>';
+  {const D=debts(),names=Object.keys(D).sort((a,b)=>a.localeCompare(b)),open=names.filter(c=>D[c]>0),v=$("cr-c").value;
+  $("cl-list").innerHTML=names.map(c=>`<option value="${esc(c)}">`).join("");
+  $("cr-c").innerHTML=open.map(c=>`<option>${esc(c)}</option>`).join("");if(v&&open.includes(v))$("cr-c").value=v;
+  $("cr-l").innerHTML=open.map(c=>`<div class="it"><span>${esc(c)}</span><span class="bad">doit ${money(D[c])}</span></div>`).join("")||'<div class="ok">Aucune dette en cours.</div>';
+  $("cr-h").innerHTML=S.payments.slice().sort((a,b)=>b.ts-a.ts).slice(0,15).map(p=>`<div class="it"><span>${esc(p.client)}<br><span class="mut">${p.date} · ${esc(p.by||"")}</span></span><span class="ok">+${money(p.amount)}${owner?` <button class="x" data-d="payments/${p.id}">✕</button>`:""}</span></div>`).join("")||'<div class="mut">Aucun paiement.</div>'}
+  if(!owner)return;
+  $("ar-l").innerHTML=S.catalog.filter(a=>a.name.toLowerCase().includes($("ar-f").value.toLowerCase())).slice().sort((a,b)=>a.name.localeCompare(b.name)).map(a=>`<div class="it" data-e="${a.id}"><span>${esc(a.name)}<br><span class="mut">achat ${money((S.costs[a.id]||{}).cost)} · vente ${money(a.price)}</span></span><span class="${stock(a.id)<=(+a.threshold||0)?"bad":""}">${stock(a.id)} <button class="x" data-d="catalog/${a.id}">✕</button></span></div>`).join("")||'<div class="mut">Aucun article.</div>';
+  {const L=S.purchases.map(p=>({id:p.id,c:"purchases",ts:p.ts,date:p.date,t:nm(p.article)+" × "+p.qty,v:money(p.qty*p.unitCost)})).concat(S.stockin.filter(x=>x.adj).map(x=>({id:x.id,c:"stockin",ts:x.ts,date:x.date,t:nm(x.article)+" · "+x.adj+" ("+(x.qty>0?"+":"")+x.qty+")",v:""}))).sort((a,b)=>b.ts-a.ts).slice(0,25);
+  $("en-l").innerHTML=L.map(p=>`<div class="it"><span>${esc(p.t)}<br><span class="mut">${p.date}</span></span><span>${p.v} <button class="x" data-d="${p.c}/${p.id}">✕</button></span></div>`).join("")||'<div class="mut">Aucune entrée.</div>'}
+  bilan();
+}
+function calc(f){const s=S.sales.filter(f),ca=s.reduce((t,x)=>t+x.qty*x.price,0),pr=s.reduce((t,x)=>t+x.qty*(x.price-((S.costs[x.article]||{}).cost||0)),0);
+  const ac=S.purchases.filter(f).reduce((t,x)=>t+x.qty*x.unitCost,0),dp=S.expenses.filter(f).reduce((t,x)=>t+(+x.amount||0),0);
+  return [["Ventes",ca],["Bénéfice brut",pr],["Achats",ac],["Dépenses",dp],["Bénéfice net",pr-dp]].map(k=>`<div>${k[0]}<b>${money(k[1])}</b></div>`).join("")}
+function bilan(){const d=$("td-d").value||today();$("k-j").innerHTML=calc(x=>x.date===d);$("k-m").innerHTML=calc(x=>(x.date||"").slice(0,7)===d.slice(0,7));
+  const owed=Object.values(debts()).filter(x=>x>0).reduce((t,x)=>t+x,0),paid=S.payments.filter(p=>p.date===d).reduce((t,p)=>t+(+p.amount||0),0);
+  const val=S.catalog.reduce((t,a)=>t+Math.max(0,stock(a.id))*((S.costs[a.id]||{}).cost||0),0);
+  $("k-s").innerHTML=`<div>Valeur du stock<b>${money(val)}</b></div><div>Articles manquants<b>${S.catalog.filter(a=>stock(a.id)<=(+a.threshold||0)).length}</b></div><div>Dettes clients<b>${money(owed)}</b></div><div>Paiements reçus (jour)<b>${money(paid)}</b></div>`}
+
+function svPrice(){const a=art($("sv-a").value);$("sv-p").value=a?a.price:"";const q=+$("sv-q").value||0;$("sv-t").textContent=a?`Total : ${money(q*a.price)} · stock : ${stock(a.id)}`:""}
+$("sv-a").onchange=svPrice;$("sv-q").oninput=svPrice;
+let cart=[];
+function debts(){const m={};S.sales.forEach(s=>{if(s.credit&&s.client)m[s.client]=(m[s.client]||0)+s.qty*s.price});S.payments.forEach(p=>{m[p.client]=(m[p.client]||0)-(+p.amount||0)});return m}
 function drawCart(){$("cart").style.display=cart.length?"block":"none";$("cart-l").innerHTML=cart.map((l,i)=>`<div class="it"><span>${esc(l.name)} × ${l.qty}</span><span>${money(l.qty*l.price)} <button class="x" data-c="${i}">✕</button></span></div>`).join("");$("cart-t").textContent="Total : "+money(cart.reduce((t,l)=>t+l.qty*l.price,0))}
-$("sv-add").onclick=()=>{const a=art($("sv-a").value),q=+$("sv-q").value;if(!a||!(q>=1))return toast("Choisissez un article et une quantité");
-  const inc=cart.filter(l=>l.id===a.id).reduce((t,l)=>t+l.qty,0);if(inc+q>left(a.id))return toast("Stock insuffisant : il reste "+(left(a.id)-inc));
-  cart.push({id:a.id,name:a.name,qty:q,price:a.price});$("sv-q").value=1;price();drawCart()};
-$("sv-pay").onchange=()=>$("sv-clw").style.display=$("sv-pay").value==="k"?"block":"none";
-function receipt(lines,m){const tot=lines.reduce((t,l)=>t+l.qty*l.price,0);
-  $("rc-t").textContent=["QUIN WINNER","Date : "+m.date,"Vendeur : "+m.by].concat(m.client?["Client : "+m.client]:[],[""],lines.map(l=>l.name+" × "+l.qty+" = "+money(l.qty*l.price)),["","TOTAL : "+money(tot),m.credit?"À crédit : à payer plus tard":"Payé comptant"]).join("\n");$("rc").style.display="flex"}
+function ask(m){return new Promise(r=>{$("cf-m").textContent=m;$("cf").style.display="flex";$("cf-y").onclick=()=>{$("cf").style.display="none";r(true)};$("cf-n").onclick=()=>{$("cf").style.display="none";r(false)}})}
+function showReceipt(lines,m){const tot=lines.reduce((t,l)=>t+l.qty*l.price,0);
+  $("rc-t").textContent=["QUIN WINNER","Date : "+m.date,"Vendeur : "+(m.by||""),m.client?"Client : "+m.client:"",""].filter((x,i)=>x||i===4).concat(lines.map(l=>l.name+" × "+l.qty+" = "+money(l.qty*l.price)),["","TOTAL : "+money(tot),m.credit?"À crédit : à payer plus tard":"Payé comptant"]).join("\n");$("rc").style.display="flex"}
 $("rc-x").onclick=()=>$("rc").style.display="none";
 $("rc-c").onclick=async()=>{try{await navigator.clipboard.writeText($("rc-t").textContent);toast("Reçu copié")}catch(e){toast("Copie impossible : faites une capture d’écran")}};
-$("rc-p").onclick=()=>{try{window.print()}catch(e){toast("Faites une capture d’écran")}};
+$("rc-p").onclick=()=>{try{window.print()}catch(e){toast("Impression impossible : faites une capture d’écran")}};
+$("sv-add").onclick=()=>{const a=art($("sv-a").value),q=+$("sv-q").value;if(!a||!(q>=1))return toast("Choisissez un article et une quantité");
+  const inCart=cart.filter(l=>l.id===a.id).reduce((t,l)=>t+l.qty,0);if(inCart+q>stock(a.id))return toast("Stock insuffisant : il reste "+(stock(a.id)-inCart));
+  cart.push({id:a.id,name:a.name,qty:q,price:+a.price});$("sv-q").value=1;svPrice();drawCart()};
+$("sv-pay").onchange=()=>{$("sv-clw").style.display=$("sv-pay").value==="k"?"block":"none"};
 $("sv-b").onclick=()=>{if(!cart.length)return;const k=$("sv-pay").value==="k",cl=$("sv-cl").value.trim();if(k&&!cl)return toast("Indiquez le nom du client");
-  const rid=uid(),lines=cart.slice(),ts=Date.now();
-  lines.forEach((l,i)=>OPS.push({c:"sales",id:"o"+uid(),d:{date:today(),ts:ts+i,article:l.id,qty:l.qty,price:l.price,by:who,rid,credit:k,client:k?cl:""}}));
-  sv("qwo_ops",OPS);cart=[];drawCart();$("sv-cl").value="";$("sv-pay").value="c";$("sv-clw").style.display="none";receipt(lines,{date:today(),by:who,client:k?cl:"",credit:k});draw()};
+  const rid=uid(),lines=cart.slice();
+  wr(async()=>{await Promise.all(lines.map(l=>db.collection("sales").doc(uid()).set({date:today(),ts:Date.now(),article:l.id,qty:l.qty,price:l.price,by:who,rid,credit:k,client:k?cl:""})));
+    cart=[];drawCart();$("sv-cl").value="";$("sv-pay").value="c";$("sv-clw").style.display="none";showReceipt(lines,{date:today(),by:who,client:k?cl:"",credit:k})})};
+$("cr-b").onclick=()=>{const c=$("cr-c").value,m=+$("cr-m").value,D=debts();if(!c||!(m>0))return toast("Choisissez un client et un montant");if(m>(D[c]||0))return toast("Le montant dépasse la dette : "+money(D[c]));
+  wr(async()=>{await db.collection("payments").doc(uid()).set({client:c,amount:m,date:today(),ts:Date.now(),by:who});$("cr-m").value="";toast("Paiement enregistré")})};
 $("dp-b").onclick=()=>{const l=$("dp-l").value.trim(),m=+$("dp-m").value;if(!l||!(m>0))return toast("Libellé et montant requis");
-  OPS.push({c:"expenses",id:"o"+uid(),d:{date:today(),ts:Date.now(),label:l,amount:m,by:who}});sv("qwo_ops",OPS);$("dp-l").value="";$("dp-m").value="";toast("Dépense enregistrée");draw()};
-function draw(){const td=today();$("tot").textContent=money(OPS.filter(o=>o.c==="sales"&&o.d.date===td).reduce((t,o)=>t+o.d.qty*o.d.price,0));
-  $("st").textContent=OPS.length?OPS.length+" à envoyer":"Tout est envoyé";$("st").className="pill"+(OPS.length?" w":"");
-  if(CAT)fill();
-  const G={};OPS.forEach(o=>{const k=o.c==="sales"?o.d.rid:o.id;(G[k]=G[k]||[]).push(o)});
-  $("op-l").innerHTML=Object.entries(G).reverse().map(([k,a])=>{const f=a[0];const t=f.c==="sales"?a.map(o=>esc((art(o.d.article)||{name:"?"}).name)+" × "+o.d.qty).join(", "):esc(f.d.label);const v=f.c==="sales"?a.reduce((s,o)=>s+o.d.qty*o.d.price,0):f.d.amount;
-    return `<div class="it"><span>${t}<br><span class="mut">${f.d.date} · ${f.c==="sales"?"vente"+(f.d.credit?" à crédit : "+esc(f.d.client):""):"dépense"}</span></span><span>${money(v)} <button class="x" data-g="${k}">✕</button></span></div>`}).join("")||'<div class="mut">Rien en attente.</div>'}
-document.addEventListener("click",e=>{const c=e.target.closest("[data-c]");if(c){cart.splice(+c.dataset.c,1);drawCart();return}
-  const g=e.target.closest("[data-g]");if(g){const k=g.dataset.g;ask("Supprimer cette opération ?").then(ok=>{if(ok){OPS=OPS.filter(o=>(o.c==="sales"?o.d.rid:o.id)!==k);sv("qwo_ops",OPS);draw()}})}});
-$("ex-b").onclick=()=>{if(!OPS.length)return toast("Rien à envoyer");
-  const blob=new Blob([JSON.stringify({v:1,by:who,date:today(),ops:OPS})],{type:"application/json"}),a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);a.download="operations_"+(who||"agent").replace(/\W+/g,"_")+"_"+today()+".json";document.body.appendChild(a);a.click();a.remove();toast("Fichier téléchargé")};
-$("cl-b").onclick=()=>{if(!OPS.length)return;ask("Avez-vous bien importé le fichier dans l’application en ligne ? Cette liste sera vidée.").then(ok=>{if(ok){OPS=[];sv("qwo_ops",OPS);draw()}})};
-if(CAT)fill();draw();loginView();
+  wr(async()=>{await db.collection("expenses").doc(uid()).set({date:today(),ts:Date.now(),label:l,amount:m,by:who});$("dp-l").value="";$("dp-m").value="";toast("Dépense enregistrée")})};
+function resetAr(){editId=null;["ar-n","ar-c","ar-p"].forEach(i=>$(i).value="");$("ar-s").value=3;$("ar-i").value=0;$("ar-i").disabled=false;$("ar-h").textContent="Nouvel article";$("ar-x").style.display="none"}
+$("ar-x").onclick=resetAr;
+$("ar-b").onclick=()=>{const n=$("ar-n").value.trim(),c=+$("ar-c").value,p=+$("ar-p").value,s=+$("ar-s").value||0,i=+$("ar-i").value||0;if(!n||!(p>0))return toast("Nom et prix de vente requis");
+  if(S.catalog.some(x=>x.id!==editId&&x.name.toLowerCase()===n.toLowerCase()))return toast("Cet article existe déjà");
+  const id=editId||uid(),isNew=!editId;
+  wr(async()=>{await db.collection("catalog").doc(id).set({name:n,price:p,threshold:s});await db.collection("costs").doc(id).set({cost:c});
+    if(isNew&&i>0){const pid=uid();await db.collection("stockin").doc(pid).set({article:id,qty:i,date:today(),ts:Date.now()});await db.collection("purchases").doc(pid).set({article:id,qty:i,unitCost:c,date:today(),ts:Date.now()})}
+    resetAr();toast("Article enregistré")})};
+$("en-a").onchange=()=>{$("en-c").value=(S.costs[$("en-a").value]||{}).cost||""};
+$("en-b").onclick=()=>{const a=art($("en-a").value),t=$("en-t").value,q=+$("en-q").value,c=+$("en-c").value;
+  if(!a||$("en-q").value==="")return toast("Choisissez un article et une quantité");const id=uid();
+  if(t==="a"){if(q<1||!(c>=0)||$("en-c").value==="")return toast("Quantité et prix d’achat requis");
+    wr(async()=>{await db.collection("stockin").doc(id).set({article:a.id,qty:q,date:today(),ts:Date.now()});await db.collection("purchases").doc(id).set({article:a.id,qty:q,unitCost:c,date:today(),ts:Date.now()});await db.collection("costs").doc(a.id).set({cost:c});$("en-q").value="";toast("Entrée enregistrée")})}
+  else{const d=t==="l"?-Math.abs(q):q-stock(a.id);if(!d)return toast("Aucun changement de stock");
+    wr(async()=>{await db.collection("stockin").doc(id).set({article:a.id,qty:d,date:today(),ts:Date.now(),adj:t==="l"?"Perte/casse":"Inventaire"});$("en-q").value="";toast("Stock ajusté")})}};
+$("td-d").value=$("sv-d").value=$("dp-d").value=today();$("sv-d").onchange=$("dp-d").onchange=render;$("sv-s").oninput=()=>{fillSelect($("sv-a"),$("sv-s").value);svPrice()};$("en-s").oninput=()=>{fillSelect($("en-a"),$("en-s").value);$("en-c").value=(S.costs[$("en-a").value]||{}).cost||""};$("ar-f").oninput=render;$("en-t").onchange=()=>{$("en-c").parentElement.style.display=$("en-t").value==="a"?"":"none"};$("td-d").onchange=bilan;
+document.addEventListener("click",e=>{
+  const c=e.target.closest("[data-c]");if(c){cart.splice(+c.dataset.c,1);drawCart();return}
+  const g=e.target.closest("[data-g]");if(g){const k=g.dataset.g;ask("Supprimer cette vente ?").then(ok=>{if(ok)wr(async()=>{await Promise.all(S.sales.filter(s=>(s.rid||s.id)===k).map(s=>db.doc("sales/"+s.id).delete()));toast("Vente supprimée")})});return}
+  const rr=e.target.closest("[data-r]");if(rr){const a=S.sales.filter(s=>(s.rid||s.id)===rr.dataset.r);if(a.length)showReceipt(a.map(s=>({name:nm(s.article),qty:s.qty,price:s.price})),{date:a[0].date,by:a[0].by,client:a[0].client,credit:a[0].credit});return}
+  const d=e.target.closest("[data-d]");
+  if(d){e.stopPropagation();const[c,id]=d.dataset.d.split("/");
+    ask("Supprimer cet élément ?").then(ok=>{if(ok)wr(async()=>{await db.doc(c+"/"+id).delete();if(c==="purchases")await db.doc("stockin/"+id).delete();if(c==="catalog")await db.doc("costs/"+id).delete();toast("Supprimé")})});return}
+  const r=e.target.closest("[data-e]");
+  if(r&&owner){const a=art(r.dataset.e);editId=a.id;$("ar-n").value=a.name;$("ar-c").value=(S.costs[a.id]||{}).cost||"";$("ar-p").value=a.price;$("ar-s").value=a.threshold;$("ar-i").value=0;$("ar-i").disabled=true;$("ar-h").textContent="Modifier l’article";$("ar-x").style.display="block";window.scrollTo(0,0)}
+});
+let who="Vendeuse";
+function sub(name,fn){db.collection(name).onSnapshot(s=>{fn(s.docs.map(d=>({id:d.id,...d.data()})));render()},()=>toast("Synchronisation interrompue"))}
+const DEF={dg:"4d6d18c6e331937ac3600b92ea61f4cc41dd9362abae8956e58ecd0409ad6848",agent:"066987ab55740e58762189a8e20eab16adbd043944768051d32d7017b372828b"};
+async function sha(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("")}
+let admin=false,pick="dg",started=false;
+let agName="";function setPick(r){pick=r;$("lg-nmw").style.display=r==="agent"?"block":"none";$("lg-dg").classList.toggle("on",r==="dg");$("lg-ag").classList.toggle("on",r==="agent")}
+function showLogin(){try{localStorage.removeItem("qw-role")}catch(e){}$("login").style.display="flex";$("lg-pw").value="";$("lg-err").textContent="";setPick(pick)}
+function enter(r){owner=admin&&r==="dg";who=r==="dg"?"DG":(agName||"Agent");$("role").textContent=who+" · changer";$("login").style.display="none";buildNav();render();
+  if(admin&&!started){started=true;sub("costs",v=>{S.costs={};v.forEach(c=>S.costs[c.id]=c)});sub("purchases",v=>S.purchases=v)}}
+$("lg-dg").onclick=()=>setPick("dg");$("lg-ag").onclick=()=>setPick("agent");$("role").onclick=showLogin;
+$("lg-go").onclick=async()=>{const pw=$("lg-pw").value;if(!pw)return;if(!db){$("lg-err").textContent="Connectez-vous à Claude pour synchroniser";return}
+  const exp=(S.access&&S.access[pick])||DEF[pick];
+  if(await sha(pick+":"+pw)!==exp){$("lg-err").textContent="Mot de passe incorrect";return}
+  if(pick==="dg"&&!admin){$("lg-err").textContent="Le mode DG est réservé au compte propriétaire. Choisissez AGENT.";return}
+  if(pick==="agent"){agName=$("lg-nm").value.trim();if(!agName){$("lg-err").textContent="Entrez votre nom";return}try{localStorage.setItem("qw-name",agName)}catch(e){}}
+  try{localStorage.setItem("qw-role",pick)}catch(e){}
+  enter(pick)};
+$("ex-b").onclick=async()=>{
+  if(!window.XLSX)return toast("Export indisponible pour le moment");
+  let dl=null;try{dl=await claude.use("downloads")}catch(e){}
+  if(!dl)return toast("Téléchargement non disponible ici");
+  const by=(a,b)=>String(a.date).localeCompare(String(b.date));
+  const wb=XLSX.utils.book_new();
+  const add=(n,rows)=>XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows.length?rows:[{"Aucune donnée":""}]),n);
+  add("Ventes",S.sales.slice().sort(by).map(s=>({Date:s.date,Article:nm(s.article),Quantité:s.qty,"Prix unitaire":s.price,Total:s.qty*s.price,Crédit:s.credit?"Oui":"Non",Client:s.client||"",Par:s.by||""})));
+  add("Dépenses",S.expenses.slice().sort(by).map(s=>({Date:s.date,Libellé:s.label,Montant:s.amount,Par:s.by||""})));
+  add("Entrées",S.purchases.slice().sort(by).map(p=>({Date:p.date,Article:nm(p.article),Quantité:p.qty,"Prix d’achat":p.unitCost,Total:p.qty*p.unitCost})));
+  add("Articles",S.catalog.map(a=>({Article:a.name,"Prix d’achat":(S.costs[a.id]||{}).cost||0,"Prix de vente":a.price,"Seuil d’alerte":a.threshold,"Stock actuel":stock(a.id)})));
+  add("Paiements",S.payments.slice().sort(by).map(p=>({Date:p.date,Client:p.client,Montant:p.amount,Par:p.by||""})));
+  try{await dl.save({filename:"QUIN_WINNER_"+today()+".xlsx",data:XLSX.write(wb,{type:"array",bookType:"xlsx"})});toast("Fichier enregistré")}
+  catch(e){if(!e||e.code!=="declined")toast("Export impossible")}};
+$("hl-c").onclick=async()=>{let dl=null;try{dl=await claude.use("downloads")}catch(e){}if(!dl)return toast("Téléchargement non disponible ici");
+  const data={v:1,date:today(),agent:(S.access&&S.access.agent)||DEF.agent,items:S.catalog.map(a=>({id:a.id,name:a.name,price:a.price,stock:stock(a.id)}))};
+  try{await dl.save({filename:"catalogue_QUIN_WINNER.json",data:JSON.stringify(data)});toast("Catalogue enregistré")}catch(e){if(!e||e.code!=="declined")toast("Export impossible")}};
+$("hl-i").onclick=()=>$("hl-f").click();
+$("hl-f").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
+  let j;try{j=JSON.parse(await f.text());if(!j||!Array.isArray(j.ops))throw 0}catch(x){return toast("Fichier d’opérations invalide")}
+  const dt=/^\d{4}-\d{2}-\d{2}$/;
+  const ok=j.ops.filter(o=>o&&typeof o.id==="string"&&/^[A-Za-z0-9]{3,30}$/.test(o.id)&&o.d&&typeof o.d.date==="string"&&dt.test(o.d.date)&&((o.c==="sales"&&art(o.d.article)&&+o.d.qty>=1&&+o.d.price>=0)||(o.c==="expenses"&&+o.d.amount>0&&o.d.label)));
+  const skip=j.ops.length-ok.length;
+  wr(async()=>{await Promise.all(ok.map(o=>{const d=o.c==="sales"?{date:o.d.date,ts:+o.d.ts||Date.now(),article:o.d.article,qty:+o.d.qty,price:+o.d.price,by:String(o.d.by||"").slice(0,40),rid:String(o.d.rid||o.id).slice(0,30),credit:!!o.d.credit,client:String(o.d.client||"").slice(0,60)}:{date:o.d.date,ts:+o.d.ts||Date.now(),label:String(o.d.label).slice(0,80),amount:+o.d.amount,by:String(o.d.by||"").slice(0,40)};return db.collection(o.c).doc(o.id).set(d)}));
+    toast(ok.length+" opération(s) importée(s)"+(skip?", "+skip+" ignorée(s)":""))})};
+$("pw-b").onclick=()=>{const a=$("pw-dg").value,b=$("pw-ag").value;if(!a&&!b)return toast("Saisissez au moins un mot de passe");
+  wr(async()=>{const n={...(S.access||{})};if(a)n.dg=await sha("dg:"+a);if(b)n.agent=await sha("agent:"+b);await db.doc("config/access").set(n);$("pw-dg").value="";$("pw-ag").value="";toast("Mots de passe changés")})};
+(async()=>{
+  try{const u=await claude.use("user");admin=u?((await u.isOwner())||(await u.canEdit())):false}catch(e){}
+  db=await claude.use("db");
+  if(!db){$("role").textContent="Non connecté";showLogin();return}
+  sub("catalog",v=>S.catalog=v);sub("stockin",v=>S.stockin=v);sub("sales",v=>S.sales=v);sub("expenses",v=>S.expenses=v);sub("payments",v=>S.payments=v);
+  db.doc("config/access").onSnapshot(s=>{S.access=s.exists?s.data():{}},()=>{});
+  let r=null;try{r=localStorage.getItem("qw-role")}catch(e){}
+  try{agName=localStorage.getItem("qw-name")||""}catch(e){}
+  if((r==="agent"&&agName)||(r==="dg"&&admin))enter(r);else showLogin();
+})();
 </script>
 </body>
 </html>
