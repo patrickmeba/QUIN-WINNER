@@ -100,6 +100,134 @@ $("sv-d").value=$("dp-d").value=$("td-d").value=today();
 onSnapshot(collection(fs,"costs"),s=>{S.costs={};s.docs.forEach(d=>S.costs[d.id]=d.data());render()});
 onSnapshot(doc(fs,"config","access"),s=>{if(s.exists())S.access={...S.access,...s.data()}});
 $("login").style.display="flex";
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QUIN WINNER</title>
+<link rel="preconnect" href="https://googleapis.com"><link rel="preconnect" href="https://gstatic.com" crossorigin>
+<link href="https://googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF2F0;--card:#fff;--tx:#14231F;--mut:#5F7470;--pri:#0E5A4F;--pri2:#0A3F38;--acc:#F4B43A;--bad:#D8452B;--ok:#14804A;--bd:#DCE6E3;--inp:#F3F7F6;--tint:#FCE9E4;--fh:"Bricolage Grotesque","Trebuchet MS",Arial,sans-serif;--fb:"Figtree","Segoe UI",Arial,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1513;--card:#13211E;--tx:#E6F0ED;--mut:#8FA8A3;--pri:#2FA38F;--pri2:#0F3A33;--bad:#FF8A70;--ok:#5FD497;--bd:#22342F;--inp:#0F1B19;--tint:#3A1F1A;color-scheme:dark}}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 var(--fb)}
+.hero{background:linear-gradient(160deg,var(--pri2),var(--pri));color:#fff;padding:18px 18px 54px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-50px;top:-50px;width:170px;height:170px;border-radius:50%;border:26px solid var(--acc);opacity:.22}
+.top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.brand{font:800 18px var(--fh);letter-spacing:2px;display:flex;align-items:center;gap:8px;min-width:0}
+.logo{width:28px;height:28px;border-radius:9px;background:var(--acc);display:grid;place-items:center}
+.logo svg{width:16px;height:16px;stroke:#14231F}
+.role{font-size:12px;font-weight:600;background:rgba(255,255,255,.16);padding:5px 11px;border-radius:20px;border:0;color:#fff;font-family:var(--fb);cursor:pointer}
+.lab{margin-top:20px;font-size:13px;opacity:.85;position:relative;z-index:1}
+.big{font:800 42px/1.1 var(--fh);margin-top:2px;position:relative;z-index:1}
+.sub{font-size:13px;opacity:.85;margin-top:4px;position:relative;z-index:1;text-transform:capitalize}
+main{padding:0 14px 110px;max-width:640px;margin:-30px auto 0;position:relative}
+.card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 6px 18px rgba(14,60,52,.08)}
+.card>b{font:700 16px var(--fh)}
+label{display:block;font-size:13px;font-weight:600;color:var(--mut);margin:12px 0 5px}
+input,select{width:100%;box-sizing:border-box;padding:12px;font:500 16px var(--fb);border:1.5px solid var(--bd);border-radius:12px;background:var(--inp);color:var(--tx)}
+.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}
+.btn{width:100%;margin-top:16px;padding:14px;border:0;border-radius:14px;background:var(--pri);color:#fff;font:700 16px var(--fb);cursor:pointer}
+#sv-b,#dp-b,#ar-b,#en-b{background:var(--acc);color:#14231F}
+.btn.alt{background:transparent;color:var(--mut);border:1.5px solid var(--bd)}
+.it{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--bd)}.it:last-child{border:0}
+.it>span:last-child{font:700 15px var(--fh);white-space:nowrap}
+.mut{color:var(--mut);font-size:12.5px;font-weight:400}.bad{color:var(--bad)}.ok{color:var(--ok);font-weight:600}
+#mq-l .bad{background:var(--tint);padding:4px 10px;border-radius:20px;font-size:13px}
+.x{border:0;background:none;color:var(--mut);font-size:16px;padding:4px 6px;cursor:pointer}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.kpi div{background:var(--inp);border-radius:14px;padding:11px;font-size:13px;color:var(--mut)}
+.kpi b{display:block;font:800 20px var(--fh);color:var(--tx);margin-top:2px}
+.kpi div:last-child:nth-child(odd){grid-column:1/-1;background:var(--pri);color:#fff}.kpi div:last-child:nth-child(odd) b{color:var(--acc)}
+#sv-t{margin-top:10px;padding:10px 12px;background:var(--inp);border-radius:12px;color:var(--mut);font-size:13.5px}
+#nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;gap:2px;background:var(--card);border-top:1px solid var(--bd);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 18px rgba(14,60,52,.08)}
+#nav button{flex:1;max-width:96px;min-width:0;border:0;background:none;color:var(--mut);padding:6px 2px;border-radius:14px;font:600 10.5px var(--fb);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+#nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#nav button.on{color:var(--pri);background:var(--inp)}
+#toast{position:fixed;left:14px;right:14px;bottom:calc(86px + env(safe-area-inset-bottom,0px));background:var(--tx);color:var(--bg);padding:12px;border-radius:14px;display:none;text-align:center;z-index:40;font-weight:600}
+.tab{display:none}.tab.on{display:block}
+.mq{overflow:hidden;width:150px}.mqi{display:inline-flex;white-space:nowrap;animation:mq 8s linear infinite}.mqi span{padding-right:34px}
+@keyframes mq{to{transform:translateX(-50%)}}
+#login{position:fixed;inset:0;z-index:20;display:none;flex-direction:column;justify-content:center;padding:20px;background:linear-gradient(160deg,var(--pri2),var(--pri));overflow:auto}
+#login h2{font:800 34px var(--fh);letter-spacing:2px;color:#fff;text-align:center;margin:0 0 4px}
+#login p.s{color:#fff;opacity:.85;text-align:center;margin:0 0 20px}
+.lgc{background:var(--card);color:var(--tx);border-radius:24px;padding:20px;max-width:380px;width:100%;box-sizing:border-box;margin:0 auto}
+.picks{display:flex;gap:10px}.picks button{flex:1;padding:16px 8px;border-radius:14px;border:2px solid var(--bd);background:var(--inp);color:var(--tx);font:800 18px var(--fh);cursor:pointer}
+.picks button.on{background:var(--acc);border-color:var(--acc);color:#14231F}
+#lg-err{color:var(--bad);font-weight:600;min-height:20px;margin-top:8px;font-size:14px}
+#cf,#rc{position:fixed;inset:0;z-index:35;background:rgba(10,30,26,.7);align-items:center;justify-content:center;padding:20px;overflow:auto}
+@media print{body>*:not(#rc){display:none!important}#rc{position:static!important;background:#fff!important;display:block!important}#rc .lgc{box-shadow:none}#rc button{display:none}}
+</style>
+</head>
+<body>
+<div id="rc" style="display:none"><div class="lgc"><b style="font:800 20px var(--fh)">Reçu</b><pre id="rc-t" style="white-space:pre-wrap;font:500 15px/1.5 var(--fb);margin:10px 0"></pre><div class="row"><button class="btn alt" id="rc-c">Copier</button><button class="btn alt" onclick="window.print()">Imprimer</button></div><button class="btn" id="rc-x">Fermer</button></div></div>
+<div id="cf" style="display:none"><div class="lgc"><p id="cf-m" style="font-weight:600;margin:0 0 6px"></p><div class="row"><button class="btn alt" id="cf-n">Annuler</button><button class="btn" id="cf-y" style="background:var(--bad);color:#fff">Supprimer</button></div></div></div>
+<div id="login"><h2>QUIN WINNER</h2><p class="s">Choisissez votre accès</p><div class="lgc">
+<div class="picks"><button id="lg-dg" class="on">DG</button><button id="lg-ag">AGENT</button></div>
+<div id="lg-nmw" style="display:none"><label>Votre nom (pour signer vos ventes)</label><input id="lg-nm" autocomplete="name"></div>
+<label>Mot de passe</label><input id="lg-pw" type="password" autocomplete="current-password">
+<div id="lg-err"></div><button class="btn" id="lg-go" style="margin-top:8px">Entrer</button></div></div>
+<div class="hero"><div class="top"><div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8"/></svg></span><div class="mq"><div class="mqi"><span>QUIN WINNER</span><span>QUIN WINNER</span><span>QUIN WINNER</span><span>QUIN WINNER</span></div></div></div><button class="role" id="role">Connexion…</button></div>
+<div class="lab">Ventes du jour</div><div class="big" id="h-tot">0</div><div class="sub" id="h-sub"></div></div>
+<main>
+<section class="tab" id="t-sv"><div class="card">
+<label>Rechercher un article</label><input id="sv-s" type="search" placeholder="Tapez le nom…" autocomplete="off">
+<label>Article</label><select id="sv-a"></select>
+<div class="row"><div><label>Quantité</label><input id="sv-q" type="number" min="1" value="1" inputmode="numeric"></div><div><label>Prix unitaire</label><input id="sv-p" type="number" readonly></div></div>
+<div id="sv-t" class="mut"></div>
+<button class="btn" id="sv-add">Ajouter au panier</button></div>
+<div class="card" id="cart" style="display:none"><b>Panier</b><div id="cart-l"></div><div id="cart-t" style="font:800 20px var(--fh);margin-top:8px"></div>
+<label>Paiement</label><select id="sv-pay"><option value="c">Comptant</option><option value="k">À crédit</option></select>
+<div id="sv-clw" style="display:none"><label>Nom du client</label><input id="sv-cl" list="cl-list" autocomplete="off"><datalist id="cl-list"></datalist></div>
+<button class="btn" id="sv-b">Valider la vente</button></div>
+<div class="card"><div class="row" style="align-items:center"><b>Ventes</b><input id="sv-d" type="date"></div><div id="sv-l"></div></div></section>
+<section class="tab" id="t-cr"><div class="card"><b>Dettes des clients</b><div id="cr-l"></div></div>
+<div class="card"><b>Enregistrer un paiement</b><label>Client</label><select id="cr-c"></select><label>Montant reçu</label><input id="cr-m" type="number" min="1" inputmode="numeric"><button class="btn" id="cr-b">Enregistrer le paiement</button></div>
+<div class="card"><b>Derniers paiements</b><div id="cr-h"></div></div></section>
+<section class="tab" id="t-dp"><div class="card">
+<label>Libellé</label><input id="dp-l" placeholder="Transport, loyer…">
+<label>Montant</label><input id="dp-m" type="number" min="0" inputmode="numeric">
+<script src="https://cloudflare.com"></script>
+<script type="module">
+import{initializeApp}from"https://gstatic.com";
+import{getFirestore,collection,doc,setDoc,deleteDoc,onSnapshot}from"https://gstatic.com";
+const app=initializeApp({apiKey:"AIzaSyAzFf_uiyr-ZpYfVxnj_7tSkhspAyhX2GI",authDomain:"://firebaseapp.com",projectId:"quin-winner-ee316",storageBucket:"quin-winner-ee316.firebasestorage.app",messagingSenderId:"841086903763",appId:"1:841086903763:web:93f3e92504cf3e5baa7b26"});
+const fs=getFirestore(app),$=id=>document.getElementById(id),pad=n=>String(n).padStart(2,"0"),today=()=>{const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())},money=n=>Math.round(n||0).toLocaleString("fr-FR"),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const S={payments:[],access:{dg:"1234",agent:"0000"},catalog:[],stockin:[],sales:[],expenses:[],costs:{},purchases:[]};
+let owner=false,editId=null,tab="sv",cart=[],who="DG",pick="dg",agName="";
+const toast=m=>{const t=$("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",2800)};
+const art=id=>S.catalog.find(a=>a.id===id),nm=id=>art(id)?art(id).name:"(supprimé)",stock=id=>S.stockin.filter(x=>x.article===id).reduce((s,x)=>s+(+x.qty||0),0)-S.sales.filter(x=>x.article===id).reduce((s,x)=>s+(+x.qty||0),0);
+const setD=(c,id,d)=>setDoc(doc(fs,c,id),d).catch(()=>toast("Erreur de connexion Firebase"));
+const delD=(c,id)=>deleteDoc(doc(fs,c,id)).catch(()=>toast("Suppression impossible"));
+const IC={cr:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',sv:'<path d="M6 7h12l-1 12H7L6 7z"/><path d="M9 7a3 3 0 016 0"/>',dp:'<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2M3 10h18"/>',mq:'<path d="M12 4l9 16H3L12 4z"/><path d="M12 10v4M12 17v.5"/>',ar:'<path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/>',en:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',td:'<path d="M5 20V10M12 20V4M19 20v-7"/>'};
+function buildNav(){const t=[["sv","Vente"],["cr","Crédits"],["dp","Dépenses"],["mq","Manquants"]];if(owner)t.push(["ar","Articles"],["en","Entrées"],["td","Bilan"]);$("nav").innerHTML=t.map(x=>`<button data-t="${x[0]}"><svg viewBox="0 0 24 24">${IC[x[0]]}</svg>${x[1]}</button>`).join("");$("nav").onclick=e=>{if(e.target.dataset.t)go(e.target.dataset.t)};go(tab)}
+function go(t){tab=t;document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));render()}
+function debts(){const m={};S.sales.forEach(s=>{if(s.credit&&s.client)m[s.client]=(m[s.client]||0)+s.qty*s.price});S.payments.forEach(p=>m[p.client]=(m[p.client]||0)-(+p.amount||0));return m}
+function fillSelect(sel,q){const v=sel.value,f=(q||"").trim().toLowerCase(),L=S.catalog.filter(a=>!f||a.name.toLowerCase().includes(f)).sort((a,b)=>a.name.localeCompare(b.name));sel.innerHTML=L.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join("");if(v&&L.some(a=>a.id===v))sel.value=v}
+function svPrice(){const a=art($("sv-a").value);$("sv-p").value=a?a.price:"";$("sv-t").textContent=a?`Total : ${money((+$("sv-q").value||0)*a.price)} · stock : ${stock(a.id)}`:""}
+function render(){
+  const tdy=today(),ds=S.sales.filter(s=>s.date===tdy);$("h-tot").textContent=money(ds.reduce((t,s)=>t+s.qty*s.price,0));$("h-sub").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})+" · "+ds.length+(ds.length>1?" ventes":" vente");
+  fillSelect($("sv-a"),$("sv-s").value);fillSelect($("en-a"),$("en-s").value);svPrice();
+  const td=$("sv-d").value||tdy,mine=S.sales.filter(s=>s.date===td).sort((a,b)=>b.ts-a.ts),G={};mine.forEach(s=>{const k=s.rid||s.id;(G[k]=G[k]||[]).push(s)});
+  $("sv-l").innerHTML=Object.entries(G).map(([k,a])=>{const t=a.reduce((c,s)=>c+s.qty*s.price,0),f=a[0];return`<div class="it"><span>${a.map(s=>esc(nm(s.article))+" × "+s.qty).join(", ")}<br><span class="mut">${esc(f.by||"")}${f.credit?" · à crédit : "+esc(f.client||""):""}</span></span><span>${money(t)} <button class="x" data-r="${k}">🧾</button>${(owner||f.date===tdy)?` <button class="x" data-g="${k}">✕</button>`:""}</span></div>`}).join("")||'<div class="mut">Aucune vente ce jour.</div>';
+  const td2=$("dp-d").value||tdy;$("dp-li").innerHTML=S.expenses.filter(s=>s.date===td2).sort((a,b)=>b.ts-a.ts).map(s=>`<div class="it"><span>${esc(s.label)}<br><span class="mut">${esc(s.by||"")}</span></span><span>${money(s.amount)}${(owner||s.date===tdy)?` <button class="x" data-d="expenses/${s.id}">✕</button>`:""}</span></div>`).join("")||'<div class="mut">Aucune dépense ce jour.</div>';
+  $("mq-l").innerHTML=S.catalog.filter(a=>stock(a.id)<=(+a.threshold||0)).map(a=>`<div class="it"><span>${esc(a.name)}</span><span class="bad">reste ${stock(a.id)}</span></div>`).join("")||'<div class="ok">Aucun article manquant.</div>';
+  const D=debts(),names=Object.keys(D).sort((a,b)=>a.localeCompare(b)),open=names.filter(c=>D[c]>0),v=$("cr-c").value;$("cl-list").innerHTML=names.map(c=>`<option value="${esc(c)}">`).join("");$("cr-c").innerHTML=open.map(c=>`<option>${esc(c)}</option>`).join("");if(v&&open.includes(v))$("cr-c").value=v;
+  $("cr-l").innerHTML=open.map(c=>`<div class="it"><span>${esc(c)}</span><span class="bad">doit ${money(D[c])}</span></div>`).join("")||'<div class="ok">Aucune dette en cours.</div>';
+  $("cr-h").innerHTML=S.payments.slice().sort((a,b)=>b.ts-a.ts).slice(0,15).map(p=>`<div class="it"><span>${esc(p.client)}<br><span class="mut">${p.date} · ${esc(p.by||"")}</span></span><span class="ok">+${money(p.amount)}${owner?` <button class="x" data-d="payments/${p.id}">✕</button>`:""}</span></div>`).join("")||'<div class="mut">Aucun paiement.</div>';
+  if(!owner)return;
+  $("ar-l").innerHTML=S.catalog.filter(a=>a.name.toLowerCase().includes($("ar-f").value.toLowerCase())).sort((a,b)=>a.name.localeCompare(b.name)).map(a=>`<div class="it" data-e="${a.id}"><span>${esc(a.name)}<br><span class="mut">achat ${money((S.costs[a.id]||{}).cost)} · vente ${money(a.price)}</span></span><span class="${stock(a.id)<=(+a.threshold||0)?"bad":""}">${stock(a.id)} <button class="x" data-d="catalog/${a.id}">✕</button></span></div>`).join("")||'<div class="mut">Aucun article.</div>';
+  $("en-l").innerHTML=S.purchases.slice().sort((a,b)=>b.ts-a.ts).slice(0,20).map(p=>`<div class="it"><span>${esc(nm(p.article))} × ${p.qty}<br><span class="mut">${p.date}</span></span><span>${money(p.qty*p.unitCost)} <button class="x" data-d="purchases/${p.id}">✕</button></span></div>`).join("")||'<div class="mut">Aucune entrée.</div>';
+  const bd=$("td-d").value||tdy,calc=f=>{const s=S.sales.filter(f),ca=s.reduce((t,x)=>t+x.qty*x.price,0),pr=s.reduce((t,x)=>t+x.qty*(x.price-((S.costs[x.article]||{}).cost||0)),0),ac=S.purchases.filter(f).reduce((t,x)=>t+x.qty*x.unitCost,0),dp=S.expenses.filter(f).reduce((t,x)=>t+(+x.amount||0),0);return[["Ventes",ca],["Bénéfice brut",pr],["Achats",ac],["Dépenses",dp],["Bénéfice net",pr-dp]].map(k=>`<div>${k[0]}<b>${money(k[1])}</b></div>`).join("")};
+  $("k-j").innerHTML=calc(x=>x.date===bd);$("k-m").innerHTML=calc(x=>(x.date||"").slice(0,7)===bd.slice(0,7));
+  const owed=Object.values(D).filter(x=>x>0).reduce((t,x)=>t+x,0),paid=S.payments.filter(p=>p.date===bd).reduce((t,p)=>t+(+p.amount||0),0),val=S.catalog.reduce((t,a)=>t+Math.max(0,stock(a.id))*((S.costs[a.id]||{}).cost||0),0);
+  $("k-s").innerHTML=`<div>Valeur du stock<b>${money(val)}</b></div><div>Articles manquants<b>${S.catalog.filter(a=>stock(a.id)<=(+a.threshold||0)).length}</b></div><div>Dettes clients<b>${money(owed)}</b></div><div>Paiements reçus<b>${money(paid)}</b></div>`;
+}
+function drawCart(){$("cart").style.display=cart.length?"block":"none";$("cart-l").innerHTML=cart.map((l,i)=>`<div class="it"><span>${esc(l.name)} × ${l.qty}</span><span>${money(l.qty*l.price)} <button class="x" data-c="${i}">✕</button></span></div>`).join("");$("cart-t").textContent="Total : "+money(cart.reduce((t,l)=>t+l.qty*l.price,0))}
+function showReceipt(lines,m){const tot=lines.reduce((t,l)=>t+l.qty*l.price,0);$("rc-t").textContent=["QUIN WINNER","Date : "+m.date,"Vendeur : "+(m.by||""),m.client?"Client : "+m.client:"",""].filter(Boolean).concat(lines.map(l=>l.name+" × "+l.qty+" = "+money(l.qty*l.price)),["","TOTAL : "+money(tot),m.credit?"À crédit":"Payé comptant"]).join("\n");$("rc").style.display="flex"}
+$("rc-x").onclick=()=>$("rc").style.display="none";$("rc-c").onclick=()=>{navigator.clipboard.writeText($("rc-t").textContent);toast("Reçu copié")};
+$("sv-a").onchange=svPrice;$("sv-q").oninput=svPrice;$("sv-s").oninput=()=>{fillSelect($("sv-a"),$("sv-s").value);svPrice()};$("ar-f").oninput=render;$("sv-d").onchange=$("dp-d").onchange=$("td-d").onchange=render;
+$("sv-pay").onchange=()=>$("sv-clw").style.display=$("sv-pay").value==="k"?"block":"none";
+$("sv-add").onclick=()=>{const a=art($("sv-a").value),q=+$("sv-q").value;if(!a||q<1)return toast("Article invalide");if(q+cart.filter(l=>l.id===a.id).reduce((t,l)=>t+l.qty,0)>stock(a.id))return toast("Stock insuffisant");cart.push({id:a.id,name:a.name,qty:q,price:+a.price});$("sv-q").value=1;svPrice();drawCart()};
 </script>
 </body>
 </html>
