@@ -1,394 +1,320 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#123b32">
-  <title>QUIN WINNER — Gestion de stock</title>
-  <style>
-    :root{--green:#123b32;--green2:#1d6652;--gold:#e8b84b;--bg:#f3f6f4;--ink:#1e2b27;--muted:#68756f;--line:#dce5df;--red:#b42318}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-    button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:11px 15px;background:var(--green2);color:#fff;font-weight:650}
-    button.secondary{background:#e8efeb;color:var(--green)}button.danger{background:#a92d26}button:disabled{opacity:.5;cursor:not-allowed}
-    .top{background:linear-gradient(120deg,var(--green),#205d4c);color:#fff;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-    .brand{font-size:22px;font-weight:850;letter-spacing:.5px}.brand small{display:block;font-size:12px;font-weight:500;opacity:.8;letter-spacing:1.4px}
-    .wrap{max-width:1200px;margin:auto;padding:20px}.panel,.stat,.login{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:0 3px 14px #183b2b0a}
-    .login{max-width:440px;margin:7vh auto;padding:25px}.login h1{margin-top:0;color:var(--green)}
-    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:16px 0}
-    .stat span{color:var(--muted);font-size:13px}.stat strong{display:block;font-size:25px;margin-top:5px;color:var(--green)}
-    .tabs{display:flex;gap:8px;overflow:auto;padding:4px 0 14px}.tabs button{white-space:nowrap;background:#e4ece7;color:var(--green)}.tabs button.active{background:var(--green);color:#fff}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:150px;margin:6px 0}
-    label{font-size:13px;color:var(--muted);font-weight:650}input,select,textarea{width:100%;border:1px solid #cbd8d0;border-radius:9px;padding:11px;background:#fff;color:var(--ink);min-width:0}
-    h2{font-size:20px;margin:0 0 13px;color:var(--green)}h3{font-size:16px;margin:0 0 10px}
-    .tablewrap{overflow:auto;margin-top:12px}table{border-collapse:collapse;width:100%;min-width:620px}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);font-size:14px}th{background:#f2f6f3;color:#52635a;position:sticky;top:0}
-    .muted{color:var(--muted)}.hidden{display:none!important}.notice{padding:12px;border-radius:10px;background:#fff7df;border:1px solid #f0dfaa;color:#705315;margin:12px 0}
-    .ok{color:#137547}.bad{color:var(--red)}.pill{display:inline-block;border-radius:30px;padding:4px 9px;background:#e9f2ed;color:#1b6348;font-size:12px;font-weight:700}
-    .foot{padding:22px;text-align:center;color:var(--muted);font-size:12px}.actions{display:flex;gap:7px;flex-wrap:wrap}.small{font-size:12px}.section{margin-top:14px}
-    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#14231e;color:#e8f4ed;padding:14px;border-radius:10px;font-size:12px;max-height:360px;overflow:auto}
-    @media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:12px}.top{padding:15px}}
-    @media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.stat strong{font-size:20px}.login{margin:3vh 12px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QUIN WINNER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF2F0;--card:#fff;--tx:#14231F;--mut:#5F7470;--pri:#0E5A4F;--pri2:#0A3F38;--acc:#F4B43A;--bad:#D8452B;--ok:#14804A;--bd:#DCE6E3;--inp:#F3F7F6;--tint:#FCE9E4;
+--fh:"Bricolage Grotesque","Trebuchet MS",Arial,sans-serif;--fb:"Figtree","Segoe UI",Arial,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1513;--card:#13211E;--tx:#E6F0ED;--mut:#8FA8A3;--pri:#2FA38F;--pri2:#0F3A33;--bad:#FF8A70;--ok:#5FD497;--bd:#22342F;--inp:#0F1B19;--tint:#3A1F1A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0B1513;--card:#13211E;--tx:#E6F0ED;--mut:#8FA8A3;--pri:#2FA38F;--pri2:#0F3A33;--bad:#FF8A70;--ok:#5FD497;--bd:#22342F;--inp:#0F1B19;--tint:#3A1F1A;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 var(--fb)}
+.hero{background:linear-gradient(160deg,var(--pri2),var(--pri));color:#fff;padding:18px 18px 54px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-50px;top:-50px;width:170px;height:170px;border-radius:50%;border:26px solid var(--acc);opacity:.22}
+.top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.brand{font:700 17px var(--fh);letter-spacing:.2px;display:flex;align-items:center;gap:8px}
+.logo{width:28px;height:28px;border-radius:9px;background:var(--acc);display:grid;place-items:center}
+.logo svg{width:16px;height:16px;stroke:#14231F}
+.role{font-size:12px;font-weight:600;background:rgba(255,255,255,.16);padding:5px 11px;border-radius:20px}
+.lab{margin-top:20px;font-size:13px;opacity:.85;position:relative;z-index:1}
+.big{font:800 42px/1.1 var(--fh);margin-top:2px;position:relative;z-index:1}
+.sub{font-size:13px;opacity:.85;margin-top:4px;position:relative;z-index:1;text-transform:capitalize}
+main{padding:0 14px 110px;max-width:640px;margin:-30px auto 0;position:relative}
+.card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 6px 18px rgba(14,60,52,.08)}
+.card>b{font:700 16px var(--fh)}
+label{display:block;font-size:13px;font-weight:600;color:var(--mut);margin:12px 0 5px}
+input,select{width:100%;box-sizing:border-box;padding:12px;font:500 16px var(--fb);border:1.5px solid var(--bd);border-radius:12px;background:var(--inp);color:var(--tx)}
+input:focus,select:focus,button:focus-visible{outline:3px solid var(--acc);outline-offset:1px;border-color:transparent}
+.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}
+.btn{width:100%;margin-top:16px;padding:14px;border:0;border-radius:14px;background:var(--pri);color:#fff;font:700 16px var(--fb);transition:transform .12s}
+.btn:active{transform:scale(.98)}
+#sv-b,#dp-b,#ar-b,#en-b{background:var(--acc);color:#14231F}
+.btn.alt{background:transparent;color:var(--mut);border:1.5px solid var(--bd)}
+.it{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--bd)}.it:last-child{border:0}
+.it>span:last-child{font:700 15px var(--fh);white-space:nowrap}
+.mut{color:var(--mut);font-size:12.5px;font-weight:400}
+.bad{color:var(--bad)}.ok{color:var(--ok);font-weight:600}
+#mq-l .bad{background:var(--tint);padding:4px 10px;border-radius:20px;font-size:13px}
+.x{border:0;background:none;color:var(--mut);font-size:16px;padding:4px 6px}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.kpi div{background:var(--inp);border-radius:14px;padding:11px;font-size:13px;color:var(--mut)}
+.kpi b{display:block;font:800 20px var(--fh);color:var(--tx);margin-top:2px}
+.kpi div:last-child:nth-child(odd){grid-column:1/-1;background:var(--pri);color:#fff}.kpi div:last-child:nth-child(odd) b{color:var(--acc)}
+#sv-t{margin-top:10px;padding:10px 12px;background:var(--inp);border-radius:12px;color:var(--mut);font-size:13.5px}
+#nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;gap:2px;background:var(--card);border-top:1px solid var(--bd);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 18px rgba(14,60,52,.08)}
+#nav button{flex:1;max-width:96px;min-width:0;border:0;background:none;color:var(--mut);padding:6px 2px;border-radius:14px;font:600 10.5px var(--fb);display:flex;flex-direction:column;align-items:center;gap:3px}
+#nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#nav button.on{color:var(--pri);background:var(--inp)}
+:root[data-theme="dark"] #nav button.on,.dk #nav button.on{color:var(--acc)}
+#toast{position:fixed;left:14px;right:14px;bottom:calc(86px + env(safe-area-inset-bottom,0px));background:var(--tx);color:var(--bg);padding:12px;border-radius:14px;display:none;text-align:center;z-index:40;font-weight:600}
+.tab{display:none}.tab.on{display:block}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+.brand{font:800 18px var(--fh);letter-spacing:2px;min-width:0}
+.mq{overflow:hidden;width:150px}.mqi{display:inline-flex;white-space:nowrap;animation:mq 8s linear infinite}.mqi span{padding-right:34px}
+@keyframes mq{to{transform:translateX(-50%)}}
+button.role{border:0;color:#fff;font-family:var(--fb);cursor:pointer}
+#login{position:fixed;inset:0;z-index:20;display:none;flex-direction:column;justify-content:center;padding:calc(24px + env(safe-area-inset-top,0px)) 20px calc(24px + env(safe-area-inset-bottom,0px));background:linear-gradient(160deg,var(--pri2),var(--pri));overflow:auto}
+#login h2{font:800 34px var(--fh);letter-spacing:2px;color:#fff;text-align:center;margin:0 0 4px}
+#login p.s{color:#fff;opacity:.85;text-align:center;margin:0 0 20px}
+.lgc{background:var(--card);color:var(--tx);border-radius:24px;padding:20px;max-width:380px;width:100%;box-sizing:border-box;margin:0 auto}
+.picks{display:flex;gap:10px}.picks button{flex:1;padding:16px 8px;border-radius:14px;border:2px solid var(--bd);background:var(--inp);color:var(--tx);font:800 18px var(--fh)}
+.picks button.on{background:var(--acc);border-color:var(--acc);color:#14231F}
+#lg-err{color:var(--bad);font-weight:600;min-height:20px;margin-top:8px;font-size:14px}
+@media(prefers-reduced-motion:reduce){.mqi{animation:none}}
+#cf{position:fixed;inset:0;z-index:35;background:rgba(10,30,26,.7);align-items:center;justify-content:center;padding:20px}
+#rc{position:fixed;inset:0;z-index:30;background:rgba(10,30,26,.7);align-items:center;justify-content:center;padding:20px;overflow:auto}
+@media print{body>*:not(#rc){display:none!important}#rc{position:static!important;background:#fff!important;display:block!important}#rc .lgc{box-shadow:none}#rc button{display:none}}
+</style>
 </head>
 <body>
-<header class="top">
-  <div class="brand">QUIN WINNER<small>GESTION DE STOCK & VENTES · CDF</small></div>
-  <div id="sessionBar" class="hidden">
-    <span id="who" style="margin-right:10px"></span>
-    <button class="secondary" id="logoutBtn">Déconnexion</button>
-  </div>
-</header>
+<div id="rc" style="display:none"><div class="lgc"><b style="font:800 20px var(--fh)">Reçu</b><pre id="rc-t" style="white-space:pre-wrap;font:500 15px/1.5 var(--fb);margin:10px 0"></pre><div class="row"><button class="btn alt" id="rc-c">Copier</button><button class="btn alt" id="rc-p">Imprimer</button></div><button class="btn" id="rc-x">Fermer</button></div></div>
+<div id="cf" style="display:none"><div class="lgc"><p id="cf-m" style="font-weight:600;margin:0 0 6px"></p><div class="row"><button class="btn alt" id="cf-n">Annuler</button><button class="btn" id="cf-y" style="background:var(--bad);color:#fff">Supprimer</button></div></div></div>
+<div id="login"><h2>QUIN WINNER</h2><p class="s">Connexion</p><div class="lgc">
+<label>Adresse e-mail</label><input id="lg-em" type="email" autocomplete="username">
+<label>Mot de passe</label><input id="lg-pw" type="password" autocomplete="current-password">
+<div id="lg-err"></div><button class="btn" id="lg-go" style="margin-top:8px">Entrer</button></div></div>
+<div class="hero"><div class="top"><div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8"/></svg></span><div class="mq"><div class="mqi"><span>QUIN WINNER</span><span>QUIN WINNER</span><span>QUIN WINNER</span><span>QUIN WINNER</span></div></div></div><button class="role" id="role">Connexion…</button></div>
+<div class="lab">Ventes du jour</div><div class="big" id="h-tot">0</div><div class="sub" id="h-sub"></div></div>
+<main>
+<section class="tab" id="t-sv"><div class="card">
+<label>Rechercher un article</label><input id="sv-s" type="search" placeholder="Tapez le nom…" autocomplete="off">
+<label>Article</label><select id="sv-a"></select>
+<div class="row"><div><label>Quantité</label><input id="sv-q" type="number" min="1" value="1" inputmode="numeric"></div><div><label>Prix unitaire</label><input id="sv-p" type="number" readonly></div></div>
+<div id="sv-t" class="mut" style="margin-top:8px"></div>
+<button class="btn" id="sv-add">Ajouter au panier</button></div>
+<div class="card" id="cart" style="display:none"><b>Panier</b><div id="cart-l"></div><div id="cart-t" style="font:800 20px var(--fh);margin-top:8px"></div>
+<label>Paiement</label><select id="sv-pay"><option value="c">Comptant</option><option value="k">À crédit</option></select>
+<div id="sv-clw" style="display:none"><label>Nom du client</label><input id="sv-cl" list="cl-list" autocomplete="off"><datalist id="cl-list"></datalist></div>
+<button class="btn" id="sv-b">Valider la vente</button></div>
+<div class="card"><div class="row" style="align-items:center"><b>Ventes</b><input id="sv-d" type="date"></div><div id="sv-l"></div></div></section>
 
-<main class="wrap">
-  <section id="loginView" class="login">
-    <h1>Bienvenue</h1>
-    <p class="muted">Connectez-vous avec votre compte QUIN WINNER.</p>
-    <form id="loginForm">
-      <div class="field"><label for="email">Adresse e-mail</label><input id="email" type="email" autocomplete="username" required></div>
-      <div class="field"><label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required></div>
-      <button type="submit" style="width:100%;margin-top:8px">Se connecter</button>
-      <p id="loginMessage" class="small bad" role="status"></p>
-    </form>
-    <div class="notice small">La connexion nécessite que Firebase soit configuré dans ce fichier et que votre compte soit créé dans Firebase Authentication.</div>
-  </section>
+<section class="tab" id="t-cr"><div class="card"><b>Dettes des clients</b><div id="cr-l"></div></div>
+<div class="card"><b>Enregistrer un paiement</b><label>Client</label><select id="cr-c"></select><label>Montant reçu</label><input id="cr-m" type="number" min="1" inputmode="numeric"><button class="btn" id="cr-b">Enregistrer le paiement</button></div>
+<div class="card"><b>Derniers paiements</b><div id="cr-h"></div></div></section>
+<section class="tab" id="t-dp"><div class="card">
+<label>Libellé</label><input id="dp-l" placeholder="Transport, loyer…">
+<label>Montant</label><input id="dp-m" type="number" min="0" inputmode="numeric">
+<button class="btn" id="dp-b">Enregistrer la dépense</button></div>
+<div class="card"><div class="row" style="align-items:center"><b>Dépenses</b><input id="dp-d" type="date"></div><div id="dp-li"></div></div></section>
 
-  <section id="appView" class="hidden">
-    <div id="setupWarning" class="notice hidden"></div>
-    <div class="grid">
-      <div class="stat"><span>Articles enregistrés</span><strong id="statArticles">0</strong></div>
-      <div class="stat"><span>Valeur des ventes du jour</span><strong id="statSales">0 CDF</strong></div>
-      <div class="stat"><span>Articles en stock faible</span><strong id="statLow">0</strong></div>
-      <div class="stat" id="profitStat"><span>Bénéfice du jour (DG)</span><strong id="statProfit">—</strong></div>
-    </div>
+<section class="tab" id="t-mq"><div class="card"><b>Articles manquants</b><div id="mq-l"></div></div></section>
 
-    <nav class="tabs" aria-label="Sections">
-      <button class="active" data-tab="dashboard">Tableau de bord</button>
-      <button data-tab="articles">Articles & stock</button>
-      <button data-tab="sales">Ventes</button>
-      <button data-tab="stock" class="dgOnly">Entrées de stock</button>
-      <button data-tab="expenses" class="dgOnly">Dépenses</button>
-      <button data-tab="reports" class="dgOnly">Rapports & bénéfices</button>
-      <button data-tab="config" class="dgOnly">Configuration</button>
-    </nav>
+<section class="tab" id="t-ar"><div class="card"><b id="ar-h">Nouvel article</b>
+<label>Désignation</label><input id="ar-n">
+<div class="row"><div><label>Prix d’achat</label><input id="ar-c" type="number" inputmode="numeric"></div><div><label>Prix de vente</label><input id="ar-p" type="number" inputmode="numeric"></div></div>
+<div class="row"><div><label>Seuil d’alerte</label><input id="ar-s" type="number" value="3" inputmode="numeric"></div><div><label>Stock initial</label><input id="ar-i" type="number" value="0" inputmode="numeric"></div></div>
+<button class="btn" id="ar-b">Enregistrer l’article</button><button class="btn alt" id="ar-x" style="display:none">Annuler la modification</button></div>
+<div class="card"><b>Articles</b> <span class="mut">(touchez pour modifier)</span><input id="ar-f" placeholder="Rechercher un article" style="margin-top:8px"><div id="ar-l"></div></div></section>
 
-    <section id="tab-dashboard" class="panel">
-      <h2>Tableau de bord</h2>
-      <p id="welcomeText" class="muted">Suivi de l'activité QUIN WINNER.</p>
-      <div class="row">
-        <div class="field"><label>Recherche rapide d'un article</label><input id="quickSearch" placeholder="Code ou nom de l'article"></div>
-        <button id="goArticles">Voir les articles</button>
-      </div>
-      <div class="section"><h3>Articles à réapprovisionner</h3><div id="lowList" class="muted">Aucun article en stock faible.</div></div>
-      <div class="notice small">Les données sont synchronisées avec Firestore lorsqu'une connexion Internet est disponible. Ne considérez pas le mode hors ligne comme une sauvegarde.</div>
-    </section>
+<section class="tab" id="t-en"><div class="card">
+<label>Type d’opération</label><select id="en-t"><option value="a">Achat (entrée de stock)</option><option value="l">Perte, casse ou vol (sortie)</option><option value="i">Inventaire (indiquer le stock réel)</option></select>
+<label>Rechercher un article</label><input id="en-s" type="search" placeholder="Tapez le nom…" autocomplete="off">
+<label>Article</label><select id="en-a"></select>
+<div class="row"><div><label>Quantité</label><input id="en-q" type="number" min="1" inputmode="numeric"></div><div><label>Prix d’achat unitaire</label><input id="en-c" type="number" inputmode="numeric"></div></div>
+<button class="btn" id="en-b">Enregistrer</button></div>
+<div class="card"><b>Entrées et ajustements récents</b><div id="en-l"></div></div></section>
 
-    <section id="tab-articles" class="panel hidden">
-      <h2>Articles & stock</h2>
-      <form id="productForm">
-        <div class="row">
-          <div class="field"><label>Nom de l'article</label><input id="pName" required></div>
-          <div class="field"><label>Prix de vente (CDF)</label><input id="pPrice" type="number" min="0" step="1" required></div>
-          <div class="field"><label>Quantité initiale</label><input id="pQty" type="number" min="0" step="1" value="0" required></div>
-          <div class="field"><label>Seuil d'alerte</label><input id="pAlert" type="number" min="0" step="1" value="5"></div>
-          <div class="field dgOnly"><label>Prix d'achat (CDF) — DG seulement</label><input id="pCost" type="number" min="0" step="1"></div>
-        </div>
-        <button type="submit">Ajouter l'article</button>
-      </form>
-      <div class="row section"><div class="field"><label>Filtrer les articles</label><input id="productSearch" placeholder="Nom ou code..."></div></div>
-      <div class="tablewrap"><table><thead><tr><th>Code</th><th>Article</th><th>Stock</th><th>Prix de vente</th><th>Seuil</th><th class="dgOnly">Prix d'achat</th></tr></thead><tbody id="productsTable"></tbody></table></div>
-    </section>
-
-    <section id="tab-sales" class="panel hidden">
-      <h2>Enregistrer une vente</h2>
-      <form id="saleForm">
-        <div class="row">
-          <div class="field"><label>Article</label><select id="saleProduct" required><option value="">Choisir un article</option></select></div>
-          <div class="field"><label>Quantité</label><input id="saleQty" type="number" min="1" step="1" value="1" required></div>
-          <div class="field"><label>Prix unitaire (CDF)</label><input id="saleUnit" type="number" min="0" step="1" required></div>
-          <div class="field"><label>Nom du client (facultatif)</label><input id="saleClient"></div>
-        </div>
-        <p id="salePreview" class="muted">Total : 0 CDF</p>
-        <button type="submit">Valider la vente</button>
-      </form>
-      <div class="section"><h3>Ventes récentes</h3><div class="tablewrap"><table><thead><tr><th>Date</th><th>Article</th><th>Qté</th><th>Prix unitaire</th><th>Total</th><th>Vendeur</th></tr></thead><tbody id="salesTable"></tbody></table></div></div>
-    </section>
-
-    <section id="tab-stock" class="panel hidden">
-      <h2>Entrée de stock</h2>
-      <form id="stockForm">
-        <div class="row">
-          <div class="field"><label>Article</label><select id="stockProduct" required><option value="">Choisir un article</option></select></div>
-          <div class="field"><label>Quantité reçue</label><input id="stockQty" type="number" min="1" step="1" required></div>
-          <div class="field"><label>Note / fournisseur</label><input id="stockNote"></div>
-        </div>
-        <button type="submit">Enregistrer l'entrée</button>
-      </form>
-      <p class="muted small">Cette fonction est réservée au Responsable.</p>
-    </section>
-
-    <section id="tab-expenses" class="panel hidden">
-      <h2>Dépenses</h2>
-      <form id="expenseForm"><div class="row">
-        <div class="field"><label>Motif</label><input id="expenseLabel" required></div>
-        <div class="field"><label>Montant (CDF)</label><input id="expenseAmount" type="number" min="1" step="1" required></div>
-      </div><button type="submit">Enregistrer la dépense</button></form>
-      <div class="tablewrap"><table><thead><tr><th>Date</th><th>Motif</th><th>Montant</th></tr></thead><tbody id="expensesTable"></tbody></table></div>
-    </section>
-
-    <section id="tab-reports" class="panel hidden">
-      <h2>Rapports & bénéfices</h2>
-      <div class="grid">
-        <div class="stat"><span>Ventes du mois</span><strong id="monthSales">0 CDF</strong></div>
-        <div class="stat"><span>Dépenses du mois</span><strong id="monthExpenses">0 CDF</strong></div>
-        <div class="stat"><span>Bénéfice brut du mois</span><strong id="monthGross">0 CDF</strong></div>
-        <div class="stat"><span>Bénéfice net estimé</span><strong id="monthNet">0 CDF</strong></div>
-      </div>
-      <p class="muted small">Le bénéfice est calculé à partir des prix d'achat enregistrés par le Responsable. Les ventes pour lesquelles le prix d'achat manque ne sont pas incluses dans le bénéfice.</p>
-      <button id="exportCsv" class="secondary">Exporter les articles en CSV</button>
-    </section>
-
-    <section id="tab-config" class="panel hidden">
-      <h2>Configuration et mise en ligne</h2>
-      <p>Cette page est conçue pour être publiée sur GitHub Pages. Les identifiants Firebase publics (firebaseConfig) doivent être ceux de votre propre projet. La sécurité réelle est appliquée par les règles Firestore, pas par les boutons cachés de cette page.</p>
-      <h3>Règles Firestore à installer dans Firebase</h3>
-      <p class="small muted">Avant de publier et d'utiliser avec de vrais stocks, faites vérifier ces règles selon votre schéma. Elles séparent les prix d'achat et les bénéfices des données visibles par Marleine.</p>
-      <pre id="rulesText">rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    function signedIn() { return request.auth != null; }
-    function myUser() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
-    }
-    function active() { return signedIn() && myUser().active == true; }
-    function isDG() { return active() && myUser().role == 'DG'; }
-    function isAgent() { return active() && myUser().role == 'AGENT'; }
-
-    match /users/{uid} {
-      allow read: if signedIn() && request.auth.uid == uid || isDG();
-      allow write: if false; // attribuer les rôles manuellement depuis Firebase Console
-    }
-    match /catalog/{id} {
-      allow read: if active();
-      allow create, delete: if isDG();
-      // L'agent peut uniquement diminuer le stock; il ne peut pas modifier le prix de vente.
-      allow update: if isDG() || (isAgent()
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stock','updatedAt'])
-        && request.resource.data.stock <= resource.data.stock);
-    }
-    match /costs/{id} {
-      allow read, write: if isDG(); // prix d'achat réservés au Responsable
-    }
-    match /sales/{id} {
-      allow read: if isDG() || (isAgent() && resource.data.sellerUid == request.auth.uid);
-      allow create: if active()
-        && request.resource.data.sellerUid == request.auth.uid
-        && request.resource.data.keys().hasOnly(['productId','productName','code','qty','unitPrice','total','client','sellerUid','sellerName','createdAt'])
-        && request.resource.data.qty is int && request.resource.data.qty > 0
-        && request.resource.data.unitPrice is number
-        && request.resource.data.total == request.resource.data.qty * request.resource.data.unitPrice;
-      allow update, delete: if isDG();
-    }
-    match /stockin/{id} { allow read, write: if isDG(); }
-    match /expenses/{id} { allow read, write: if isDG(); }
-    match /{document=**} { allow read, write: if false; }
-  }
-}</pre>
-      <button id="copyRules" class="secondary">Copier les règles</button>
-      <div class="notice small">Important : les règles ci-dessus constituent une base de départ. Pour une gestion de stock avec plusieurs vendeurs, une Cloud Function est recommandée pour valider atomiquement chaque vente et la diminution du stock. Ne mettez jamais les prix d'achat dans les documents catalog lisibles par Marleine.</div>
-    </section>
-  </section>
+<section class="tab" id="t-td"><div class="card"><label>Jour affiché</label><input id="td-d" type="date"></div>
+<div class="card"><b>Jour</b><div class="kpi" id="k-j"></div></div>
+<div class="card"><b>Mois</b><div class="kpi" id="k-m"></div></div>
+<div class="card"><b>Stock</b><div class="kpi" id="k-s"></div></div><div class="card"><b>Sauvegarde</b><div class="mut" style="margin-top:4px">Exporte les ventes, dépenses, entrées et articles dans un fichier Excel.</div><button class="btn" id="ex-b">Exporter vers Excel</button></div><div class="card"><b>Comptes et mots de passe</b><div class="mut" style="margin-top:6px">Les comptes DG et agents se gèrent dans la console Firebase (Authentication). Chaque personne a son e-mail et son mot de passe.</div></div></section>
 </main>
-<div class="foot">QUIN WINNER · Gestion commerciale · Montants en francs congolais (CDF)</div>
-
-<!-- Firebase compat SDK : cette version est utilisée pour simplifier l'intégration dans un seul fichier HTML. -->
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<nav id="nav"></nav>
+<div id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-/* ÉTAPE OBLIGATOIRE : remplacez les valeurs ci-dessous par la configuration Web de VOTRE projet Firebase. */
-const firebaseConfig = {
-  apiKey: "COLLEZ_ICI_VOTRE_API_KEY",
-  authDomain: "VOTRE-PROJET.firebaseapp.com",
-  projectId: "VOTRE-PROJET",
-  storageBucket: "VOTRE-PROJET.appspot.com",
-  messagingSenderId: "VOTRE_SENDER_ID",
-  appId: "VOTRE_APP_ID"
-};
-
-const $ = id => document.getElementById(id);
-const money = n => (Number(n)||0).toLocaleString('fr-FR') + ' CDF';
-const dateNow = () => new Date().toISOString();
-const todayKey = () => new Date().toLocaleDateString('en-CA');
-let auth=null, db=null, currentUser=null, profile=null, products=[], sales=[], expenses=[], costs=[];
-let unsubscribers=[];
-const isDG = () => profile && profile.role === 'DG';
-const showMsg = (id,msg,ok=false) => { $(id).textContent=msg; $(id).className=ok?'small ok':'small bad'; };
-
-function showLogin(message=''){
-  $('loginView').classList.remove('hidden'); $('appView').classList.add('hidden'); $('sessionBar').classList.add('hidden');
-  if(message) showMsg('loginMessage',message);
-}
-function showApp(){
-  $('loginView').classList.add('hidden'); $('appView').classList.remove('hidden'); $('sessionBar').classList.remove('hidden');
-  $('who').textContent=(profile.displayName || currentUser.email)+' · '+(isDG()?'RESPONSABLE':'MARLEINE');
-  document.querySelectorAll('.dgOnly').forEach(el=>el.classList.toggle('hidden',!isDG()));
-  $('profitStat').classList.toggle('hidden',!isDG());
-  $('welcomeText').textContent=isDG()?'Accès Responsable : stock, achats, dépenses et bénéfices.':'Accès Marleine : ventes et prix de vente uniquement.';
-  if(!isDG()) { $('tab-stock').classList.add('hidden'); $('tab-expenses').classList.add('hidden'); $('tab-reports').classList.add('hidden'); $('tab-config').classList.add('hidden'); }
-}
-function stopListeners(){unsubscribers.forEach(fn=>fn());unsubscribers=[];}
-function listenData(){
-  stopListeners();
-  unsubscribers.push(db.collection('catalog').onSnapshot(s=>{
-    products=s.docs.map(d=>({id:d.id,...d.data()})); renderAll();
-  },err=>console.error(err)));
-  unsubscribers.push(db.collection('sales').onSnapshot(s=>{
-    sales=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||'')); renderAll();
-  },err=>console.error(err)));
-  if(isDG()){
-    unsubscribers.push(db.collection('expenses').onSnapshot(s=>{expenses=s.docs.map(d=>({id:d.id,...d.data()}));renderAll();},console.error));
-    unsubscribers.push(db.collection('costs').onSnapshot(s=>{costs=s.docs.map(d=>({id:d.id,...d.data()}));renderAll();},console.error));
-  } else { expenses=[]; costs=[]; }
-}
-function renderAll(){
-  const today=todayKey(), month=today.slice(0,7);
-  const daySales=sales.filter(s=>(s.createdAt||'').slice(0,10)===today);
-  const sumDay=daySales.reduce((a,s)=>a+Number(s.total||0),0);
-  const low=products.filter(p=>Number(p.stock||0)<=Number(p.alertAt??5));
-  $('statArticles').textContent=products.length;
-  $('statSales').textContent=money(sumDay);
-  $('statLow').textContent=low.length;
-  $('lowList').innerHTML=low.length?low.map(p=>`<div>${esc(p.name)} — stock : <b>${Number(p.stock||0)}</b></div>`).join(''):'Aucun article en stock faible.';
-  $('productsTable').innerHTML=products.filter(p=>(p.name+' '+p.code).toLowerCase().includes(($('productSearch').value||'').toLowerCase())).map(p=>`<tr><td>${esc(p.code||'')}</td><td>${esc(p.name||'')}</td><td>${Number(p.stock||0)}</td><td>${money(p.salePrice)}</td><td>${Number(p.alertAt??5)}</td><td class="dgOnly">${isDG()?money(costFor(p.id)):'—'}</td></tr>`).join('');
-  document.querySelectorAll('#productsTable .dgOnly').forEach(e=>e.classList.toggle('hidden',!isDG()));
-  const opts='<option value="">Choisir un article</option>'+products.map(p=>`<option value="${p.id}">${esc(p.code||'')} — ${esc(p.name)} (stock ${Number(p.stock||0)})</option>`).join('');
-  $('saleProduct').innerHTML=opts; $('stockProduct').innerHTML=opts;
-  $('salesTable').innerHTML=sales.slice(0,30).map(s=>`<tr><td>${fmtDate(s.createdAt)}</td><td>${esc(s.productName||'')}</td><td>${s.qty}</td><td>${money(s.unitPrice)}</td><td>${money(s.total)}</td><td>${esc(s.sellerName||'')}</td></tr>`).join('');
-  $('expensesTable').innerHTML=expenses.sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||'')).slice(0,30).map(e=>`<tr><td>${fmtDate(e.createdAt)}</td><td>${esc(e.label)}</td><td>${money(e.amount)}</td></tr>`).join('');
-  if(isDG()){
-    const ms=sales.filter(s=>(s.createdAt||'').slice(0,7)===month);
-    const me=expenses.filter(e=>(e.createdAt||'').slice(0,7)===month);
-    const revenue=ms.reduce((a,s)=>a+Number(s.total||0),0);
-    const expense=me.reduce((a,e)=>a+Number(e.amount||0),0);
-    const gross=ms.reduce((a,s)=>a+(Number(s.total||0)-costFor(s.productId)*Number(s.qty||0)),0);
-    $('statProfit').textContent=money(daySales.reduce((a,s)=>a+(Number(s.total||0)-costFor(s.productId)*Number(s.qty||0)),0));
-    $('monthSales').textContent=money(revenue);$('monthExpenses').textContent=money(expense);
-    $('monthGross').textContent=money(gross);$('monthNet').textContent=money(gross-expense);
-  }
-}
-function costFor(id){const c=costs.find(x=>x.productId===id);return c?Number(c.purchasePrice||0):0;}
-function fmtDate(s){if(!s)return '';const d=new Date(s);return isNaN(d)?'':d.toLocaleString('fr-FR');}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function nextCode(){let max=0;products.forEach(p=>{const m=String(p.code||'').match(/QW-(\d+)/);if(m)max=Math.max(max,Number(m[1]));});return 'QW-'+String(max+1).padStart(6,'0');}
-function activateTab(tab){
-  document.querySelectorAll('[id^="tab-"]').forEach(el=>el.classList.add('hidden'));
-  $('tab-'+tab).classList.remove('hidden');
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
-}
-document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>activateTab(b.dataset.tab)));
-$('goArticles').onclick=()=>activateTab('articles');
-$('productSearch').addEventListener('input',renderAll);
-$('quickSearch').addEventListener('input',()=>{$('productSearch').value=$('quickSearch').value;activateTab('articles');renderAll();});
-$('saleProduct').addEventListener('change',()=>{const p=products.find(x=>x.id===$('saleProduct').value);if(p)$('saleUnit').value=Number(p.salePrice||0);previewSale();});
-$('saleQty').addEventListener('input',previewSale);$('saleUnit').addEventListener('input',previewSale);
-function previewSale(){$('salePreview').textContent='Total : '+money(Number($('saleQty').value||0)*Number($('saleUnit').value||0));}
-
-$('loginForm').addEventListener('submit',async e=>{
-  e.preventDefault();
-  if(!window.firebase || firebaseConfig.apiKey.startsWith('COLLEZ_')){showMsg('loginMessage','Configuration Firebase manquante : remplacez firebaseConfig dans le fichier HTML.');return;}
-  try{await auth.signInWithEmailAndPassword($('email').value.trim(),$('password').value);}
-  catch(err){showMsg('loginMessage','Connexion impossible : '+(err.code||err.message));}
-});
-$('logoutBtn').onclick=()=>auth.signOut();
-$('productForm').addEventListener('submit',async e=>{
-  e.preventDefault();if(!isDG())return alert('Action réservée au Responsable.');
-  const name=$('pName').value.trim(), price=Number($('pPrice').value), qty=Number($('pQty').value), alertAt=Number($('pAlert').value||5), purchase=Number($('pCost').value||0);
-  if(!name||price<0||qty<0)return;
-  try{
-    const ref=await db.collection('catalog').add({code:nextCode(),name,salePrice:price,stock:qty,alertAt,updatedAt:dateNow()});
-    if($('pCost').value!=='')await db.collection('costs').add({productId:ref.id,purchasePrice:purchase,updatedAt:dateNow()});
-    e.target.reset();$('pQty').value=0;$('pAlert').value=5;
-  }catch(err){alert('Erreur : '+err.message);}
-});
-$('saleForm').addEventListener('submit',async e=>{
-  e.preventDefault();
-  const p=products.find(x=>x.id===$('saleProduct').value),qty=Number($('saleQty').value),unit=Number($('saleUnit').value);
-  if(!p)return alert('Choisissez un article.');
-  if(!Number.isInteger(qty)||qty<1||qty>Number(p.stock||0))return alert('Quantité invalide ou stock insuffisant.');
-  if(unit<0)return alert('Prix invalide.');
-  try{
-    await db.runTransaction(async tx=>{
-      const ref=db.collection('catalog').doc(p.id),snap=await tx.get(ref);
-      if(!snap.exists||Number(snap.data().stock||0)<qty)throw new Error('Stock insuffisant. Actualisez la page.');
-      tx.update(ref,{stock:Number(snap.data().stock||0)-qty,updatedAt:dateNow()});
-      const saleRef=db.collection('sales').doc();
-      tx.set(saleRef,{productId:p.id,productName:p.name,code:p.code||'',qty,unitPrice:unit,total:qty*unit,client:$('saleClient').value.trim(),sellerUid:currentUser.uid,sellerName:profile.displayName||currentUser.email,createdAt:dateNow()});
-    });
-    e.target.reset();$('saleQty').value=1;$('salePreview').textContent='Total : 0 CDF';
-  }catch(err){alert('Vente non enregistrée : '+err.message);}
-});
-$('stockForm').addEventListener('submit',async e=>{
-  e.preventDefault();if(!isDG())return;
-  const p=products.find(x=>x.id===$('stockProduct').value),qty=Number($('stockQty').value);
-  if(!p||!Number.isInteger(qty)||qty<1)return;
-  try{await db.runTransaction(async tx=>{
-    const ref=db.collection('catalog').doc(p.id),snap=await tx.get(ref);
-    if(!snap.exists)throw new Error('Article introuvable.');
-    tx.update(ref,{stock:Number(snap.data().stock||0)+qty,updatedAt:dateNow()});
-    tx.set(db.collection('stockin').doc(),{productId:p.id,productName:p.name,qty,note:$('stockNote').value.trim(),byUid:currentUser.uid,createdAt:dateNow()});
-  });e.target.reset();}catch(err){alert(err.message);}
-});
-$('expenseForm').addEventListener('submit',async e=>{
-  e.preventDefault();if(!isDG())return;
-  try{await db.collection('expenses').add({label:$('expenseLabel').value.trim(),amount:Number($('expenseAmount').value),byUid:currentUser.uid,createdAt:dateNow()});e.target.reset();}
-  catch(err){alert(err.message);}
-});
-$('exportCsv').onclick=()=>{
-  if(!isDG())return;
-  const rows=[['Code','Article','Stock','Prix de vente','Prix achat'],...products.map(p=>[p.code,p.name,p.stock,p.salePrice,costFor(p.id)])];
-  const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n');
-  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download='QUIN-WINNER-articles.csv';a.click();URL.revokeObjectURL(url);
-};
-$('copyRules').onclick=async()=>{try{await navigator.clipboard.writeText($('rulesText').textContent);alert('Règles copiées.');}catch(e){alert('Sélectionnez et copiez le texte des règles.');}};
-
-if(window.firebase && !firebaseConfig.apiKey.startsWith('COLLEZ_')){
-  try{firebase.initializeApp(firebaseConfig);auth=firebase.auth();db=firebase.firestore();
-    auth.onAuthStateChanged(async user=>{
-      stopListeners();currentUser=user;profile=null;products=[];sales=[];expenses=[];costs=[];
-      if(!user){showLogin();return;}
-      try{
-        const snap=await db.collection('users').doc(user.uid).get();
-        if(!snap.exists||snap.data().active!==true||!['DG','AGENT'].includes(snap.data().role)){
-          await auth.signOut();showLogin('Compte non autorisé. Le Responsable doit créer votre profil users dans Firestore.');return;
-        }
-        profile=snap.data();showApp();listenData();renderAll();
-      }catch(err){await auth.signOut();showLogin('Erreur de profil ou règles Firestore : '+err.message);}
-    });
-  }catch(err){$('setupWarning').textContent='Erreur de configuration Firebase : '+err.message;$('setupWarning').classList.remove('hidden');}
-}else{
-  $('setupWarning').textContent='Firebase n’est pas encore configuré. Ouvrez ce fichier, remplacez firebaseConfig par les valeurs de votre application Web Firebase, puis publiez à nouveau sur GitHub.';
-  $('setupWarning').classList.remove('hidden');
-}
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAzFf_uiyr-ZpYfVxnj_7tSkhspAyhX2GI",
-    authDomain: "quin-winner-ee316.firebaseapp.com",
-    databaseURL: "https://quin-winner-ee316-default-rtdb.firebaseio.com",
-    projectId: "quin-winner-ee316",
-    storageBucket: "quin-winner-ee316.firebasestorage.app",
-    messagingSenderId: "841086903763",
-    appId: "1:841086903763:web:93f3e92504cf3e5baa7b26"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+/* ====== CONFIGURATION FIREBASE : collez ici les valeurs de votre projet ====== */
+const FIREBASE_CONFIG={apiKey:"COLLEZ_ICI",authDomain:"COLLEZ_ICI",projectId:"COLLEZ_ICI",appId:"COLLEZ_ICI"};
 </script>
+<script>
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,"0");
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())};
+const money=n=>Math.round(n||0).toLocaleString("fr-FR");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+let db=null,owner=false,editId=null,tab="sv";
+const S={payments:[],access:{},catalog:[],stockin:[],sales:[],expenses:[],costs:{},purchases:[]};
+function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",3000)}
+let busy=false;async function wr(fn){if(busy)return;busy=true;try{await Promise.race([fn(),new Promise((_,j)=>setTimeout(()=>j(new Error("t")),12000))])}catch(e){toast("Action refusée ou hors ligne : réessayez")}finally{busy=false}}
+const art=id=>S.catalog.find(a=>a.id===id);
+const stock=id=>S.stockin.filter(x=>x.article===id).reduce((s,x)=>s+(+x.qty||0),0)-S.sales.filter(x=>x.article===id).reduce((s,x)=>s+(+x.qty||0),0);
+const nm=id=>art(id)?art(id).name:"(supprimé)";
+
+const IC={cr:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',sv:'<path d="M6 7h12l-1 12H7L6 7z"/><path d="M9 7a3 3 0 016 0"/>',dp:'<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h2M3 10h18"/>',mq:'<path d="M12 4l9 16H3L12 4z"/><path d="M12 10v4M12 17v.5"/>',ar:'<path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/>',en:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',td:'<path d="M5 20V10M12 20V4M19 20v-7"/>'};
+function buildNav(){
+  const tabs=[["sv","Vente"],["cr","Crédits"],["dp","Dépenses"],["mq","Manquants"]];
+  if(owner)tabs.push(["ar","Articles"],["en","Entrées"],["td","Bilan"]);
+  $("nav").innerHTML=tabs.map(t=>`<button data-t="${t[0]}"><svg viewBox="0 0 24 24">${IC[t[0]]}</svg>${t[1]}</button>`).join("");
+  $("nav").onclick=e=>{if(e.target.dataset.t)go(e.target.dataset.t)};
+  go(tab);
+}
+function go(t){tab=t;document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));
+  document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));render()}
+
+function fillSelect(sel,q){const v=sel.value,f=(q||"").trim().toLowerCase();
+  const L=S.catalog.filter(a=>!f||a.name.toLowerCase().includes(f)).sort((a,b)=>a.name.localeCompare(b.name));
+  sel.innerHTML=L.length?L.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join(""):'<option value="" disabled selected>Aucun article trouvé</option>';
+  if(v&&L.some(a=>a.id===v))sel.value=v}
+function render(){
+  {const tdy=today(),ds=S.sales.filter(s=>s.date===tdy);$("h-tot").textContent=money(ds.reduce((t,s)=>t+s.qty*s.price,0));$("h-sub").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})+" · "+ds.length+(ds.length>1?" ventes":" vente")}
+  fillSelect($("sv-a"),$("sv-s").value);fillSelect($("en-a"),$("en-s").value);svPrice();
+  const td=$("sv-d").value||today(),mine=S.sales.filter(s=>s.date===td).sort((a,b)=>b.ts-a.ts);
+  const G={};mine.forEach(s=>{const k=s.rid||s.id;(G[k]=G[k]||[]).push(s)});const gr=Object.entries(G).map(([k,a])=>({k,a,ts:Math.max(...a.map(x=>x.ts||0))})).sort((x,y)=>y.ts-x.ts);
+  $("sv-l").innerHTML=(mine.length?`<div class="mut" style="margin:8px 0 2px">Total : ${money(mine.reduce((t,s)=>t+s.qty*s.price,0))}</div>`:"")+gr.map(g=>{const t=g.a.reduce((c,s)=>c+s.qty*s.price,0),f=g.a[0];return `<div class="it"><span>${g.a.map(s=>esc(nm(s.article))+" × "+s.qty).join(", ")}<br><span class="mut">${esc(f.by||"")}${f.credit?" · à crédit : "+esc(f.client||""):""}</span></span><span>${money(t)} <button class="x" data-r="${g.k}">🧾</button>${(owner||f.date===today())?` <button class="x" data-g="${g.k}">✕</button>`:""}</span></div>`}).join("")||'<div class="mut">Aucune vente ce jour.</div>';
+  const td2=$("dp-d").value||today(),dj=S.expenses.filter(s=>s.date===td2).sort((a,b)=>b.ts-a.ts);
+  $("dp-li").innerHTML=dj.map(s=>`<div class="it"><span>${esc(s.label)}<br><span class="mut">${esc(s.by||"")}</span></span><span>${money(s.amount)}${(owner||s.date===today())?` <button class="x" data-d="expenses/${s.id}">✕</button>`:""}</span></div>`).join("")||'<div class="mut">Aucune dépense ce jour.</div>';
+  const low=S.catalog.filter(a=>stock(a.id)<=(+a.threshold||0));
+  $("mq-l").innerHTML=low.map(a=>`<div class="it"><span>${esc(a.name)}</span><span class="bad">reste ${stock(a.id)}</span></div>`).join("")||'<div class="ok">Aucun article manquant.</div>';
+  {const D=debts(),names=Object.keys(D).sort((a,b)=>a.localeCompare(b)),open=names.filter(c=>D[c]>0),v=$("cr-c").value;
+  $("cl-list").innerHTML=names.map(c=>`<option value="${esc(c)}">`).join("");
+  $("cr-c").innerHTML=open.map(c=>`<option>${esc(c)}</option>`).join("");if(v&&open.includes(v))$("cr-c").value=v;
+  $("cr-l").innerHTML=open.map(c=>`<div class="it"><span>${esc(c)}</span><span class="bad">doit ${money(D[c])}</span></div>`).join("")||'<div class="ok">Aucune dette en cours.</div>';
+  $("cr-h").innerHTML=S.payments.slice().sort((a,b)=>b.ts-a.ts).slice(0,15).map(p=>`<div class="it"><span>${esc(p.client)}<br><span class="mut">${p.date} · ${esc(p.by||"")}</span></span><span class="ok">+${money(p.amount)}${owner?` <button class="x" data-d="payments/${p.id}">✕</button>`:""}</span></div>`).join("")||'<div class="mut">Aucun paiement.</div>'}
+  if(!owner)return;
+  $("ar-l").innerHTML=S.catalog.filter(a=>a.name.toLowerCase().includes($("ar-f").value.toLowerCase())).slice().sort((a,b)=>a.name.localeCompare(b.name)).map(a=>`<div class="it" data-e="${a.id}"><span>${esc(a.name)}<br><span class="mut">achat ${money((S.costs[a.id]||{}).cost)} · vente ${money(a.price)}</span></span><span class="${stock(a.id)<=(+a.threshold||0)?"bad":""}">${stock(a.id)} <button class="x" data-d="catalog/${a.id}">✕</button></span></div>`).join("")||'<div class="mut">Aucun article.</div>';
+  {const L=S.purchases.map(p=>({id:p.id,c:"purchases",ts:p.ts,date:p.date,t:nm(p.article)+" × "+p.qty,v:money(p.qty*p.unitCost)})).concat(S.stockin.filter(x=>x.adj).map(x=>({id:x.id,c:"stockin",ts:x.ts,date:x.date,t:nm(x.article)+" · "+x.adj+" ("+(x.qty>0?"+":"")+x.qty+")",v:""}))).sort((a,b)=>b.ts-a.ts).slice(0,25);
+  $("en-l").innerHTML=L.map(p=>`<div class="it"><span>${esc(p.t)}<br><span class="mut">${p.date}</span></span><span>${p.v} <button class="x" data-d="${p.c}/${p.id}">✕</button></span></div>`).join("")||'<div class="mut">Aucune entrée.</div>'}
+  bilan();
+}
+function calc(f){const s=S.sales.filter(f),ca=s.reduce((t,x)=>t+x.qty*x.price,0),pr=s.reduce((t,x)=>t+x.qty*(x.price-((S.costs[x.article]||{}).cost||0)),0);
+  const ac=S.purchases.filter(f).reduce((t,x)=>t+x.qty*x.unitCost,0),dp=S.expenses.filter(f).reduce((t,x)=>t+(+x.amount||0),0);
+  return [["Ventes",ca],["Bénéfice brut",pr],["Achats",ac],["Dépenses",dp],["Bénéfice net",pr-dp]].map(k=>`<div>${k[0]}<b>${money(k[1])}</b></div>`).join("")}
+function bilan(){const d=$("td-d").value||today();$("k-j").innerHTML=calc(x=>x.date===d);$("k-m").innerHTML=calc(x=>(x.date||"").slice(0,7)===d.slice(0,7));
+  const owed=Object.values(debts()).filter(x=>x>0).reduce((t,x)=>t+x,0),paid=S.payments.filter(p=>p.date===d).reduce((t,p)=>t+(+p.amount||0),0);
+  const val=S.catalog.reduce((t,a)=>t+Math.max(0,stock(a.id))*((S.costs[a.id]||{}).cost||0),0);
+  $("k-s").innerHTML=`<div>Valeur du stock<b>${money(val)}</b></div><div>Articles manquants<b>${S.catalog.filter(a=>stock(a.id)<=(+a.threshold||0)).length}</b></div><div>Dettes clients<b>${money(owed)}</b></div><div>Paiements reçus (jour)<b>${money(paid)}</b></div>`}
+
+function svPrice(){const a=art($("sv-a").value);$("sv-p").value=a?a.price:"";const q=+$("sv-q").value||0;$("sv-t").textContent=a?`Total : ${money(q*a.price)} · stock : ${stock(a.id)}`:""}
+$("sv-a").onchange=svPrice;$("sv-q").oninput=svPrice;
+let cart=[];
+function debts(){const m={};S.sales.forEach(s=>{if(s.credit&&s.client)m[s.client]=(m[s.client]||0)+s.qty*s.price});S.payments.forEach(p=>{m[p.client]=(m[p.client]||0)-(+p.amount||0)});return m}
+function drawCart(){$("cart").style.display=cart.length?"block":"none";$("cart-l").innerHTML=cart.map((l,i)=>`<div class="it"><span>${esc(l.name)} × ${l.qty}</span><span>${money(l.qty*l.price)} <button class="x" data-c="${i}">✕</button></span></div>`).join("");$("cart-t").textContent="Total : "+money(cart.reduce((t,l)=>t+l.qty*l.price,0))}
+function ask(m){return new Promise(r=>{$("cf-m").textContent=m;$("cf").style.display="flex";$("cf-y").onclick=()=>{$("cf").style.display="none";r(true)};$("cf-n").onclick=()=>{$("cf").style.display="none";r(false)}})}
+function showReceipt(lines,m){const tot=lines.reduce((t,l)=>t+l.qty*l.price,0);
+  $("rc-t").textContent=["QUIN WINNER","Date : "+m.date,"Vendeur : "+(m.by||""),m.client?"Client : "+m.client:"",""].filter((x,i)=>x||i===4).concat(lines.map(l=>l.name+" × "+l.qty+" = "+money(l.qty*l.price)),["","TOTAL : "+money(tot),m.credit?"À crédit : à payer plus tard":"Payé comptant"]).join("\n");$("rc").style.display="flex"}
+$("rc-x").onclick=()=>$("rc").style.display="none";
+$("rc-c").onclick=async()=>{try{await navigator.clipboard.writeText($("rc-t").textContent);toast("Reçu copié")}catch(e){toast("Copie impossible : faites une capture d’écran")}};
+$("rc-p").onclick=()=>{try{window.print()}catch(e){toast("Impression impossible : faites une capture d’écran")}};
+$("sv-add").onclick=()=>{const a=art($("sv-a").value),q=+$("sv-q").value;if(!a||!(q>=1))return toast("Choisissez un article et une quantité");
+  const inCart=cart.filter(l=>l.id===a.id).reduce((t,l)=>t+l.qty,0);if(inCart+q>stock(a.id))return toast("Stock insuffisant : il reste "+(stock(a.id)-inCart));
+  cart.push({id:a.id,name:a.name,qty:q,price:+a.price});$("sv-q").value=1;svPrice();drawCart()};
+$("sv-pay").onchange=()=>{$("sv-clw").style.display=$("sv-pay").value==="k"?"block":"none"};
+$("sv-b").onclick=()=>{if(!cart.length)return;const k=$("sv-pay").value==="k",cl=$("sv-cl").value.trim();if(k&&!cl)return toast("Indiquez le nom du client");
+  const rid=uid(),lines=cart.slice();
+  wr(async()=>{await Promise.all(lines.map(l=>db.collection("sales").doc(uid()).set({date:today(),ts:Date.now(),article:l.id,qty:l.qty,price:l.price,by:who,rid,credit:k,client:k?cl:""})));
+    cart=[];drawCart();$("sv-cl").value="";$("sv-pay").value="c";$("sv-clw").style.display="none";showReceipt(lines,{date:today(),by:who,client:k?cl:"",credit:k})})};
+$("cr-b").onclick=()=>{const c=$("cr-c").value,m=+$("cr-m").value,D=debts();if(!c||!(m>0))return toast("Choisissez un client et un montant");if(m>(D[c]||0))return toast("Le montant dépasse la dette : "+money(D[c]));
+  wr(async()=>{await db.collection("payments").doc(uid()).set({client:c,amount:m,date:today(),ts:Date.now(),by:who});$("cr-m").value="";toast("Paiement enregistré")})};
+$("dp-b").onclick=()=>{const l=$("dp-l").value.trim(),m=+$("dp-m").value;if(!l||!(m>0))return toast("Libellé et montant requis");
+  wr(async()=>{await db.collection("expenses").doc(uid()).set({date:today(),ts:Date.now(),label:l,amount:m,by:who});$("dp-l").value="";$("dp-m").value="";toast("Dépense enregistrée")})};
+function resetAr(){editId=null;["ar-n","ar-c","ar-p"].forEach(i=>$(i).value="");$("ar-s").value=3;$("ar-i").value=0;$("ar-i").disabled=false;$("ar-h").textContent="Nouvel article";$("ar-x").style.display="none"}
+$("ar-x").onclick=resetAr;
+$("ar-b").onclick=()=>{const n=$("ar-n").value.trim(),c=+$("ar-c").value,p=+$("ar-p").value,s=+$("ar-s").value||0,i=+$("ar-i").value||0;if(!n||!(p>0))return toast("Nom et prix de vente requis");
+  if(S.catalog.some(x=>x.id!==editId&&x.name.toLowerCase()===n.toLowerCase()))return toast("Cet article existe déjà");
+  const id=editId||uid(),isNew=!editId;
+  wr(async()=>{await db.collection("catalog").doc(id).set({name:n,price:p,threshold:s});await db.collection("costs").doc(id).set({cost:c});
+    if(isNew&&i>0){const pid=uid();await db.collection("stockin").doc(pid).set({article:id,qty:i,date:today(),ts:Date.now()});await db.collection("purchases").doc(pid).set({article:id,qty:i,unitCost:c,date:today(),ts:Date.now()})}
+    resetAr();toast("Article enregistré")})};
+$("en-a").onchange=()=>{$("en-c").value=(S.costs[$("en-a").value]||{}).cost||""};
+$("en-b").onclick=()=>{const a=art($("en-a").value),t=$("en-t").value,q=+$("en-q").value,c=+$("en-c").value;
+  if(!a||$("en-q").value==="")return toast("Choisissez un article et une quantité");const id=uid();
+  if(t==="a"){if(q<1||!(c>=0)||$("en-c").value==="")return toast("Quantité et prix d’achat requis");
+    wr(async()=>{await db.collection("stockin").doc(id).set({article:a.id,qty:q,date:today(),ts:Date.now()});await db.collection("purchases").doc(id).set({article:a.id,qty:q,unitCost:c,date:today(),ts:Date.now()});await db.collection("costs").doc(a.id).set({cost:c});$("en-q").value="";toast("Entrée enregistrée")})}
+  else{const d=t==="l"?-Math.abs(q):q-stock(a.id);if(!d)return toast("Aucun changement de stock");
+    wr(async()=>{await db.collection("stockin").doc(id).set({article:a.id,qty:d,date:today(),ts:Date.now(),adj:t==="l"?"Perte/casse":"Inventaire"});$("en-q").value="";toast("Stock ajusté")})}};
+$("td-d").value=$("sv-d").value=$("dp-d").value=today();$("sv-d").onchange=$("dp-d").onchange=render;$("sv-s").oninput=()=>{fillSelect($("sv-a"),$("sv-s").value);svPrice()};$("en-s").oninput=()=>{fillSelect($("en-a"),$("en-s").value);$("en-c").value=(S.costs[$("en-a").value]||{}).cost||""};$("ar-f").oninput=render;$("en-t").onchange=()=>{$("en-c").parentElement.style.display=$("en-t").value==="a"?"":"none"};$("td-d").onchange=bilan;
+document.addEventListener("click",e=>{
+  const c=e.target.closest("[data-c]");if(c){cart.splice(+c.dataset.c,1);drawCart();return}
+  const g=e.target.closest("[data-g]");if(g){const k=g.dataset.g;ask("Supprimer cette vente ?").then(ok=>{if(ok)wr(async()=>{await Promise.all(S.sales.filter(s=>(s.rid||s.id)===k).map(s=>db.doc("sales/"+s.id).delete()));toast("Vente supprimée")})});return}
+  const rr=e.target.closest("[data-r]");if(rr){const a=S.sales.filter(s=>(s.rid||s.id)===rr.dataset.r);if(a.length)showReceipt(a.map(s=>({name:nm(s.article),qty:s.qty,price:s.price})),{date:a[0].date,by:a[0].by,client:a[0].client,credit:a[0].credit});return}
+  const d=e.target.closest("[data-d]");
+  if(d){e.stopPropagation();const[c,id]=d.dataset.d.split("/");
+    ask("Supprimer cet élément ?").then(ok=>{if(ok)wr(async()=>{await db.doc(c+"/"+id).delete();if(c==="purchases")await db.doc("stockin/"+id).delete();if(c==="catalog")await db.doc("costs/"+id).delete();toast("Supprimé")})});return}
+  const r=e.target.closest("[data-e]");
+  if(r&&owner){const a=art(r.dataset.e);editId=a.id;$("ar-n").value=a.name;$("ar-c").value=(S.costs[a.id]||{}).cost||"";$("ar-p").value=a.price;$("ar-s").value=a.threshold;$("ar-i").value=0;$("ar-i").disabled=true;$("ar-h").textContent="Modifier l’article";$("ar-x").style.display="block";window.scrollTo(0,0)}
+});
+let who="Vendeuse";
+function sub(name,fn){db.collection(name).onSnapshot(s=>{fn(s.docs.map(d=>({id:d.id,...d.data()})));render()},()=>toast("Synchronisation interrompue"))}
+$("ex-b").onclick=async()=>{
+  if(!window.XLSX)return toast("Export indisponible pour le moment");
+  const by=(a,b)=>String(a.date).localeCompare(String(b.date));
+  const wb=XLSX.utils.book_new();
+  const add=(n,rows)=>XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows.length?rows:[{"Aucune donnée":""}]),n);
+  add("Ventes",S.sales.slice().sort(by).map(s=>({Date:s.date,Article:nm(s.article),Quantité:s.qty,"Prix unitaire":s.price,Total:s.qty*s.price,Crédit:s.credit?"Oui":"Non",Client:s.client||"",Par:s.by||""})));
+  add("Dépenses",S.expenses.slice().sort(by).map(s=>({Date:s.date,Libellé:s.label,Montant:s.amount,Par:s.by||""})));
+  add("Entrées",S.purchases.slice().sort(by).map(p=>({Date:p.date,Article:nm(p.article),Quantité:p.qty,"Prix d’achat":p.unitCost,Total:p.qty*p.unitCost})));
+  add("Articles",S.catalog.map(a=>({Article:a.name,"Prix d’achat":(S.costs[a.id]||{}).cost||0,"Prix de vente":a.price,"Seuil d’alerte":a.threshold,"Stock actuel":stock(a.id)})));
+  add("Paiements",S.payments.slice().sort(by).map(p=>({Date:p.date,Client:p.client,Montant:p.amount,Par:p.by||""})));
+  try{const d=XLSX.write(wb,{type:"array",bookType:"xlsx"}),l=document.createElement("a");l.href=URL.createObjectURL(new Blob([d],{type:"application/octet-stream"}));l.download="QUIN_WINNER_"+today()+".xlsx";document.body.appendChild(l);l.click();l.remove();toast("Fichier téléchargé")}catch(e){toast("Export impossible")}};
+let admin=false,started=false,fdb=null,fauth=null,profile=null;
+const fail=e=>toast("Opération refusée : "+((e&&e.code)||"erreur"));
+function wd(r){return{set:d=>{r.set(d).catch(fail);return Promise.resolve()},delete:()=>{r.delete().catch(fail);return Promise.resolve()}}}
+function showLogin(){$("login").style.display="flex";$("lg-pw").value="";$("lg-err").textContent=""}
+function enter(){owner=admin;who=profile.name||(admin?"DG":"Agent");$("role").textContent=who+" · quitter";$("login").style.display="none";buildNav();render();
+  if(!started){started=true;
+    sub("catalog",v=>S.catalog=v);sub("stockin",v=>S.stockin=v);sub("sales",v=>S.sales=v);sub("expenses",v=>S.expenses=v);sub("payments",v=>S.payments=v);
+    if(admin){sub("costs",v=>{S.costs={};v.forEach(c=>S.costs[c.id]=c)});sub("purchases",v=>S.purchases=v)}}}
+$("role").onclick=async()=>{try{if(fauth)await fauth.signOut()}catch(e){}location.reload()};
+$("lg-go").onclick=async()=>{const em=$("lg-em").value.trim(),pw=$("lg-pw").value;if(!em||!pw||!fauth)return;$("lg-err").textContent="";
+  try{await fauth.signInWithEmailAndPassword(em,pw)}catch(e){$("lg-err").textContent=(e&&e.code==="auth/network-request-failed")?"Pas d’internet : la première connexion exige internet.":"E-mail ou mot de passe incorrect."}};
+addEventListener("offline",()=>toast("Hors ligne : vos opérations seront envoyées au retour d’internet"));
+addEventListener("online",()=>toast("Connexion rétablie : synchronisation en cours"));
+(function(){
+  if(!FIREBASE_CONFIG.apiKey||/COLLEZ/.test(FIREBASE_CONFIG.apiKey)){showLogin();$("lg-err").textContent="Configuration Firebase manquante : voir le guide.";return}
+  firebase.initializeApp(FIREBASE_CONFIG);fauth=firebase.auth();fdb=firebase.firestore();
+  fdb.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+  db={collection:n=>({doc:id=>wd(fdb.collection(n).doc(id)),onSnapshot:(a,b)=>fdb.collection(n).onSnapshot(a,b)}),doc:p=>Object.assign(wd(fdb.doc(p)),{onSnapshot:(a,b)=>fdb.doc(p).onSnapshot(a,b)})};
+  fauth.onAuthStateChanged(async u=>{
+    if(!u){profile=null;admin=false;showLogin();return}
+    const key="qw-profile-"+u.uid;
+    try{const s=await fdb.doc("users/"+u.uid).get();if(!s.exists)throw 0;profile=s.data();try{localStorage.setItem(key,JSON.stringify(profile))}catch(e){}}
+    catch(e){try{profile=JSON.parse(localStorage.getItem(key)||"null")}catch(x){profile=null}}
+    if(!profile||!["dg","agent"].includes(profile.role)){showLogin();$("lg-err").textContent="Compte non autorisé : demandez au DG de créer votre profil.";try{await fauth.signOut()}catch(e){}return}
+    admin=profile.role==="dg";enter()});
+})();
 </script>
 </body>
+  rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function profil() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    function connecte() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+    function dg() { return connecte() && profil().role == 'dg'; }
+
+    // Profil de chaque personne : lecture de son propre profil seulement.
+    // Les profils se créent à la main dans la console Firebase.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // Visible par tous les comptes, modifiable par le DG seulement.
+    match /catalog/{id}  { allow read: if connecte(); allow write: if dg(); }
+    match /stockin/{id}  { allow read: if connecte(); allow write: if dg(); }
+
+    // Prix d'achat et achats : DG seulement.
+    match /costs/{id}     { allow read, write: if dg(); }
+    match /purchases/{id} { allow read, write: if dg(); }
+
+    // Ventes, dépenses, paiements : DG et agents.
+    match /sales/{id}    { allow read, write: if connecte(); }
+    match /expenses/{id} { allow read, write: if connecte(); }
+    match /payments/{id} { allow read, write: if connecte(); }
+  }
+}
+
 </html>
